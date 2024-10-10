@@ -1,0 +1,235 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .titlehome{
+        margin: 20px 0px;
+    }
+    .info-prod-H {
+      /*  position: absolute;*/
+        /*right: 0;
+        bottom: 0;
+        left: 0;*/
+        padding: 0 5px 5px 5px;
+           
+    }
+
+        .info-prod-H h3 {
+            color: #333;
+            font-weight: 400;
+            padding: 8px;
+              font-size:13px;
+
+                  margin: 0px;
+        }
+
+        .info-prod-H h4 {
+            font-size: 14px;
+            font-weight: 700;
+            color: #f8456a;
+                margin: 0px;
+                    font-size: 13px;
+              
+        }
+        .item{
+            width: 100%;
+            display: inline-block;
+            height: 325px;
+           /* border-right: 1px solid #eaeaea;
+            border-bottom: 1px solid #eaeaea;*/
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+                padding: 0px 10px;
+                    border: 1px solid #ddd;
+        }
+    .img-prod-H {
+     
+        display: block;
+      
+        margin: 10px auto 0 auto;
+    
+         max-height: 250px;
+    }
+    .box-products .col-sm-4{
+        padding: 0px 0px;
+    }
+    .t_span1 span{ cursor:pointer;}
+
+    .padmb{
+            margin-top: 42px;
+    display: inline-block;
+    width: 100%;
+    }
+    .title-sale {
+        text-align: center;
+        position: relative;
+        margin-top: 10px;
+        margin-bottom: 17px;
+    }
+
+        .title-sale:before {
+            content: "";
+            display: block;
+            position: absolute;
+            z-index: 1;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            height: 9px;
+            width: 50%;
+            border-top: 1px solid #e77e24;
+            border-bottom: 1px solid #e77e24;
+        }
+        .title-sale p {
+    margin: 0 auto;
+    z-index: 2;
+    font-size: 20px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #fff;
+    line-height: 50px;
+    padding: 0 63px;
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    overflow: hidden;
+    background: #353535;
+    -webkit-box-shadow: inset 0 3px 0 0 #e77e24, inset 0 -3px 0 0 #e77e24;
+    -moz-box-shadow: inset 0 3px 0 0 #e77e24,inset 0 -3px 0 0 #e77e24;
+    box-shadow: inset 0 3px 0 0 #e77e24, inset 0 -3px 0 0 #e77e24;
+}
+
+            .title-sale p:after, .title-sale p:before {
+                content: "";
+                display: block;
+                width: 100px;
+                height: 100px;
+                position: absolute;
+                background: #fff;
+                z-index: 2;
+                top: 0;
+                bottom: 0;
+                left: -63px;
+                margin: auto 0;
+                border: 4px solid #e77e24;
+                -webkit-transform: rotate(45deg) skew(26deg,26deg);
+                -moz-transform: rotate(45deg) skew(26deg,26deg);
+                -ms-transform: rotate(45deg) skew(26deg,26deg);
+                -o-transform: rotate(45deg) skew(26deg,26deg);
+                transform: rotate(45deg) skew(26deg,26deg);
+            }
+
+            .title-sale p a {
+                position: relative;
+                display: inline-block;
+                vertical-align: top;
+                padding: 0 30px;
+                color: #fff;
+            }
+
+                .title-sale p a:before {
+                    content: "";
+                    position: absolute;
+                    left: -5px;
+                    top: 15px;
+                    background: url(image-common/favorites.svg) no-repeat;
+                    background-size: 20px;
+                    width: 20px;
+                    height: 20px;
+                }
+
+                .title-sale p a:after {
+                    content: "";
+                    position: absolute;
+                    right: -5px;
+                    top: 15px;
+                    background: url(image-common/favorites.svg) no-repeat;
+                    background-size: 20px;
+                    width: 20px;
+                    height: 20px;
+                }
+
+            .title-sale p:after {
+                left: auto;
+                right: -63px;
+            }
+
+        .title-sale:after {
+            content: "";
+            display: block;
+            position: absolute;
+            z-index: 1;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            height: 1px;
+            width: 70%;
+            background: #e77e24;
+        }
+
+    .section-title-container{
+        padding: 0px;
+    }
+
+    .section-title-main{
+        text-align: center;
+        /* display: inline-flex; */
+        /* text-align: center; */
+        font-size: 24px;
+        margin: 0 0 8px;
+        font-weight: 700;
+        color: #ffffff;
+        display: inline-block;
+        min-width: 70%;
+        background: #5fa645;
+        box-shadow: 0px 0px 0px 2px rgba(95, 166, 69, 0.8);
+        padding: 8px 15px 10px;
+        border-radius: 50px;
+    }
+
+</style>
+
+
+<div class="slider">
+    <style>
+        .slider {
+            margin-top: 15px;
+        }
+    </style>
+    <div class="container">
+        <div class="owl-carousel owl-theme owl-carousel-setting">
+            <div class="items" style="height:520px;"><img style="height:100%" src="/image-side/slide3.jpg" class="d-block w-100" alt="..."></div>
+            <div class="items" style="height:520px;"><img style="height:100%" src="/image-side/slide4.jpg" class="d-block w-100" alt="..."></div>
+            <div class="items" style="height:520px;"><img style="height:100%" src="/image-side/slide2.jpg" class="d-block w-100" alt="..."></div>
+            <div class="items" style="height:520px;"><img style="height:100%" src="/image-side/slide1.jpg" class="d-block w-100" alt="..."></div>
+
+        </div>
+    </div>
+</div>
+
+
+@await Component.InvokeAsync("ProductNewComponent")
+
+@await Component.InvokeAsync("ProductSellHotComponent")
+
+@await Component.InvokeAsync("ProductForCategoryComponent")
+
+@await Component.InvokeAsync("PostsComponent")
+
+
+
+@*@await Component.InvokeAsync("ProductForCategoryComponent")*@
+
+@*@await Component.InvokeAsync("SidersComponent")*@
+@* sản phẩm bán chạy *@
+
+@*thương hiệu
+@* @await Component.InvokeAsync("ProductSellHotComponent")*@
+@*sản phẩm mới
+@await Component.InvokeAsync("ProductNewComponent")*@

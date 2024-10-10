@@ -1,0 +1,117 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .custom-td{
+        vertical-align: middle !important;
+    }
+</style>
+
+    <section class="ftco-section ftco-cart custom-height" style="margin-top: 40px">
+        <div  class="container">
+        <div class="row" style="justify-content:center;text-align: center;">
+                <h2 class="mb-3">@TempData["Message"]</h2>
+                <a href="/" class="btn btn-secondary py-3 px-4 mr-3 btn-buy" style="color: #fff;margin-right: 10px;">Tiếp tục mua hàng</a>                
+            </div>
+        </div>
+    </section>
+@section Scripts{
+        <script type="text/javascript">
+    
+    function addQuantity(className,id){
+        var value = parseInt($("."+className).val());
+        if (value < 9999) {
+             value = value + 1;
+                $("." + className).val(value);
+                $.ajax({
+                    url: '/Carts/Update',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        product_id: parseInt(className),
+                        quantity: $("." + className).val(),
+                        id: id
+                    },
+                    beforeSend: function () {
+                        // Loading('show');
+                    },
+                    complete: function () {
+                        // Loading('hiden');
+                    },
+                    success: function (response) {
+                        if (response.success && response.Data) {
+                            $("." + className).text(response.Data.pricestr);
+                        }
+                        //else{
+                        //    $("#categoryModal").modal("show");
+                        //}
+                    }
+                })
+        }
+       
+
+    }
+
+     function minusQuantity(className,id){
+        var value = parseInt($("."+className).val());
+        if (value < 9999 && value >=2) {
+            $("."+className).val(value - 1);
+        }
+        $.ajax({
+            url: '/Carts/Update',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                product_id: parseInt(className),
+                quantity: $("."+className).val(),
+                id:id
+            },
+            beforeSend: function () {
+                // Loading('show');
+            },
+            complete: function () {
+                // Loading('hiden');
+            },
+            success: function (response) {
+                if (response.success && response.Data) {
+                    $("." + className).text(response.Data.pricestr);
+                }
+                //if (response.success) {
+                //    $("#CartsModal").modal("show");
+                //}
+                //else{
+                //        $("#categoryModal").modal("show");
+                //}
+            }
+        })
+
+    }
+    function deleteCart(id){
+        $.ajax({
+            url: '/Carts/Deleted',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                id: id
+            },
+            beforeSend: function () {
+                // Loading('show');
+            },
+            complete: function () {
+                // Loading('hiden');
+            },
+            success: function (response) {
+                if (response.success) {
+                    $("#CartsModal").modal("show");
+                }                
+            }
+        })
+
+    }
+    
+
+
+</script>
+}

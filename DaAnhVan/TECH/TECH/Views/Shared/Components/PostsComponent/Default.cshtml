@@ -1,0 +1,164 @@
+﻿@using TECH.Areas.Admin.Models
+@using TECH.Utilities
+@model PagedResult<PostModelView>
+
+@*@if (Model != null && Model.Results != null && Model.Results.Count > 0)
+{
+    <div data-v-fabbb9d8="" class="sidebar-box">
+        <h3 data-v-fabbb9d8="" class="heading">Bài viết gần đây</h3>
+        @foreach (var item in Model.Results)
+        {
+            <div data-v-fabbb9d8="" class="block-21 mb-4 d-flex">
+                <a data-v-fabbb9d8="" class="blog-img mr-4"><img data-v-fabbb9d8="" src="/product-post/@item.avatar" alt="" class="img-style"></a>
+                <div data-v-fabbb9d8="" class="text">
+                    <h3 data-v-fabbb9d8="" class="heading-1"><a data-v-fabbb9d8="" href="/chi-tiet-bai-viet/@item.id">@item.title</a></h3>
+                    <div data-v-fabbb9d8="" class="meta">
+                        <div data-v-fabbb9d8=""><span data-v-fabbb9d8="" class="icon-calendar"></span>@item.created_at.Value.ToString("dd/MM/yyyy")</div>
+                        <div data-v-fabbb9d8=""><span data-v-fabbb9d8="" class="icon-person"></span> @item.author_name</div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+*@
+<style>
+    #section_655545480 {
+        padding-top: 30px;
+        padding-bottom: 30px;
+        background-color: rgb(250, 250, 250);
+    }
+    .section {
+    padding: 30px 0;
+    position: relative;
+    min-height: auto;
+    width: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -ms-flex-flow: row;
+    flex-flow: row;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+
+    .section-title b {
+        opacity: 0.4;
+        background-color: #6fd6c1;
+    }
+
+    .section-title span {
+        text-transform: uppercase;
+    }
+    .section-title-center span {
+        margin: 0 15px;
+        color: #0a0a0a;
+        font-weight: 700;
+
+    }
+   /* .row {
+    max-width: 1300px;
+}*/
+    /*.col-inner {
+        position: relative;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
+        background-position: 50% 50%;
+        background-size: cover;
+        background-repeat: no-repeat;
+        -webkit-box-flex: 1;
+        -ms-flex: 1 0 auto;
+        flex: 1 0 auto;
+    }*/
+    .section-content{
+
+    }
+         /*   .image-cover{
+                            padding-top:unset !important;
+            }*/
+                
+</style>
+
+
+
+@if (Model != null && Model.Results != null && Model.Results.Count > 0)
+{
+
+    <div class="section section2 custom-section">
+        <div class="container">
+            <div class="section-content relative">
+                <div class="row" id="row-189734160">
+                    <div id="col-2128626493" class="col small-12 large-12">
+                        <div class="col-inner">
+                            <div class="container section-title-container">
+                                <h2 class="section-title section-title-center"><b></b><span class="section-title-main">Tin tức - bài viết</span><b></b></h2>
+                            </div>
+                            <div class="row  equalize-box large-columns-5 medium-columns-3 small-columns-2 row-small">
+                                @foreach (var item in Model.Results.Take(3))
+                                {
+                                <div class="col-sm-4">
+                                    <div class="col-inner">
+
+                                            <div class="product-small box has-hover box-normal box-text-bottom" style="background:unset !important;box-shadow:unset !important">
+                                            <div class="box-image" style="display: inline-block;width: 100%;height: 250px;">
+                                                <div class="image-zoom image-cover" style="width: 100%; display: inline-block; height: 100%;">
+                                                        <a href="/chi-tiet-bai-viet/@item.id" aria-label="Chi tiết bài viết">
+                                                            <img loading="lazy" decoding="async" width="790" style="height: 250px;" src="/product-post/@item.avatar" class="attachment-original size-original lazy-load-active" alt="" sizes="(max-width: 790px) 100vw, 790px">
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="box-text" style="height:unset">
+                                                <div class="title-wrapper">
+                                                        <div data-v-fabbb9d8=""><span data-v-fabbb9d8="" class="icon-calendar"></span>@item.created_at.Value.ToString("dd/MM/yyyy")</div>
+                                                    <p class="name product-title woocommerce-loop-product__title" style="height:unset;text-align: justify;">
+                                                            <a href="/chi-tiet-bai-viet/@item.id" class="woocommerce-LoopProduct-link woocommerce-loop-product__link"> @item.title</a>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+@*
+    <div data-v-fabbb9d8="" class="sidebar-box">
+        <h3 data-v-fabbb9d8="" class="heading">Bài viết gần đây</h3>
+        @foreach (var item in Model.Results)
+        {
+          <div data-v-fabbb9d8="" class="block-21 mb-4 d-flex">
+                <a data-v-fabbb9d8="" class="blog-img mr-4"><img data-v-fabbb9d8="" src="/product-post/@item.avatar" alt="" class="img-style"></a>
+                <div data-v-fabbb9d8="" class="text">
+                    <h3 data-v-fabbb9d8="" class="heading-1"><a data-v-fabbb9d8="" href="/chi-tiet-bai-viet/@item.id">@item.title</a></h3>
+                    <div data-v-fabbb9d8="" class="meta">
+                        <div data-v-fabbb9d8=""><span data-v-fabbb9d8="" class="icon-calendar"></span>@item.created_at.Value.ToString("dd/MM/yyyy")</div>
+                        <div data-v-fabbb9d8=""><span data-v-fabbb9d8="" class="icon-person"></span> @item.author_name</div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>*@
+}
+
+
+
+
+
+
+
+

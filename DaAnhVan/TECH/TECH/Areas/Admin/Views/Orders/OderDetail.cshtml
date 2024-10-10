@@ -1,0 +1,142 @@
+﻿@using TECH.Areas.Admin.Models
+@model OrdersModelView
+@{
+    ViewData["Title"] = "Quản lý tài khoản";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .item-image{
+              width: 100px;
+    height: 75px;
+    border-radius: 6px;
+    }
+</style>
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Quản lý đơn hàng</h3>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+                        <li aria-current="page" class="breadcrumb-item active">Quản lý đơn hàng</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <section class="section">
+        <div data-v-67c1a79b="">
+            <div data-v-67c1a79b="">
+                <div data-v-074d32cc="" data-v-67c1a79b="">
+                    <div data-v-074d32cc="" class="card">
+                        <div data-v-074d32cc="" class="card-header">
+                            <div data-v-074d32cc="" class="row">
+                                <div data-v-074d32cc="" class="col-md-12">Thông tin giỏ hàng</div>
+                            </div>
+                        </div>
+                        <div data-v-074d32cc="" class="card-body">
+                            <table data-v-074d32cc="" id="table1" class="table table-striped">
+                                <thead data-v-074d32cc="">
+                                    <tr data-v-074d32cc="">
+                                        <th data-v-074d32cc="">Hình ảnh</th>
+                                        <th data-v-074d32cc="">Tên sản phẩm</th>
+                                        <th data-v-074d32cc="">Số lượng</th>
+                                        <th data-v-074d32cc="">Giá tiền</th>
+                                    </tr>
+                                </thead>
+                                <tbody data-v-074d32cc="">
+                                    @if (Model.OrdersDetailModelView != null && Model.OrdersDetailModelView.Count > 0)
+                                    {
+                                        foreach (var item in Model.OrdersDetailModelView)
+                                        {
+                                            <tr>
+                                                @if (item.ProductModelView.ImageModelView != null && @item.ProductModelView.ImageModelView.Count > 0)
+                                                {
+                                                      <td><img src="/product-image/@item.ProductModelView.ImageModelView[0].name" class="item-image" /></td>
+                                                }
+                                                else{
+                                                    <td><img src="/product-image/@item.ProductModelView.avatar" class="item-image" /></td>
+                                                }
+                                              
+
+                                                <td>@item.ProductModelView.name</td>
+
+                                                <td>@item.quantity</td>
+
+                                                <td>@item.price.Value.ToString("#,###")</td>
+                                            </tr>
+                                        }
+                                    }
+
+                                </tbody>
+                                <tfoot data-v-074d32cc="">
+                                    <tr data-v-074d32cc="">
+                                        <td data-v-074d32cc="" colspan="3" class="txt-right">Tổng tiền:</td>
+                                        <td data-v-074d32cc="">@Model.totalstr <i data-v-074d32cc="">đ</i></td>
+                                    </tr>
+                                    @if (Model.fee_ship.HasValue && Model.fee_ship.Value > 0)
+                                    {
+                                        <tr data-v-074d32cc="">
+                                            <td data-v-074d32cc="" colspan="3" class="txt-right">Phí vận chuyển:</td>
+                                            <td data-v-074d32cc="">
+                                                <span data-v-074d32cc="" style="display: none;"><i data-v-074d32cc="">đ</i></span>
+                                                <span data-v-074d32cc="">@Model.fee_ship.Value.ToString("#,###")<i data-v-074d32cc="">đ</i></span>
+                                                <span data-v-074d32cc="" style="display: none;">Nơi này chưa có phí cụ thể</span>
+                                            </td>
+                                        </tr>
+                                    }
+
+                                    <tr data-v-074d32cc="">
+                                        <td data-v-074d32cc="" colspan="3" class="txt-right">Hình thức thanh toán:</td>
+                                        <td data-v-074d32cc="">
+                                            <div data-v-074d32cc="">@Model.paymentstr</div>
+                                        </td>
+                                    </tr>
+                                    <tr data-v-074d32cc="">
+                                        <td data-v-074d32cc="" colspan="3" class="txt-right">Thành tiền:</td>
+                                        <td data-v-074d32cc="">@Model.totalstr <i data-v-074d32cc="">đ</i></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                    <div data-v-074d32cc="" class="card">
+                        <div data-v-074d32cc="" class="card-header">
+                            <div data-v-074d32cc="" class="row">
+                                <div data-v-074d32cc="" class="col-md-12">Thông tin mua hàng</div>
+                            </div>
+                        </div>
+                        <div data-v-074d32cc="" class="card-body">
+                            <table data-v-074d32cc="" id="table1" class="table table-striped">
+                                <tbody data-v-074d32cc="">
+                                    <tr data-v-074d32cc="">
+                                        <td data-v-074d32cc="">Họ tên:</td>
+                                        <td data-v-074d32cc="">@Model.full_name</td>
+                                    </tr>
+                                    <tr data-v-074d32cc="">
+                                        <td data-v-074d32cc="">Số điện thoại</td>
+                                        <td data-v-074d32cc="">@Model.phone_number</td>
+                                    </tr>
+                                    @* <tr data-v-074d32cc="" style="display: none;">
+                                    <td data-v-074d32cc="">Địa chỉ nhận hàng:</td>
+                                    <td data-v-074d32cc="">@Model.</td>
+                                    </tr>*@
+                                    <tr data-v-074d32cc="">
+                                        <td data-v-074d32cc="">Ghi chú:</td>
+                                        <td data-v-074d32cc="">@Model.note</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <div class="col-6 d-flex"><a href="/admin/quan-ly-don-hang" class="btn btn-secondary me-1 mb-1 btn-back">Quay lại</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+

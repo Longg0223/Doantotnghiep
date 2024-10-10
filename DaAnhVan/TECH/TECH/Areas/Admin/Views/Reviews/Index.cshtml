@@ -1,0 +1,148 @@
+﻿@{
+    ViewData["Title"] = "Quản lý bài viết";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@*<style>
+    .fisrt-image-product {
+        width: 77px;
+        height: 55px;
+        border-radius: 4px;
+    }
+</style>*@
+ <style type="text/css">
+    input.error {
+        border-color: #f00 !important;
+    }
+
+    label.error {
+        clear: both;
+        color: #f00;
+        display: block;
+        text-align: left;
+        margin: unset;
+        padding: unset;
+        font-size: 15px;
+        font-weight: unset !important;
+        background: unset;
+    }
+    .form-group[class*='has-icon-'] .form-control-icon{
+        transform: unset !important;
+        top: 10% !important;
+    }
+    .required{
+        color: #f00;
+    }
+    .item-image{
+        width: 10vw;
+        height: 15vh;
+    }
+    .star-color{
+        color: #fcc72a;
+    }
+</style>
+
+
+
+<div class="page-heading product-list">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Quản lý đánh giá</h3>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+                        <li aria-current="page" class="breadcrumb-item active">Quản lý đánh giá</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <section class="section">
+        <div  class="card">
+            <div >
+                <!---->
+                <div class="snotify snotify-left_top"></div>
+                <div class="snotify snotify-left_center"></div>
+                <div class="snotify snotify-left_bottom"></div>
+                <div class="snotify snotify-right_top"></div>
+                <div class="snotify snotify-right_center"></div>
+                <div class="snotify snotify-right_bottom"></div>
+                <div class="snotify snotify-center_top"></div>
+                <div class="snotify snotify-center_center"></div>
+                <div class="snotify snotify-center_bottom"></div>
+            </div>
+            <div  class="card-header">
+                <div  class="row">
+                    <div  class="col-md-6">Danh sách đánh giá</div>
+                    <div  class="col-md-6">
+                    </div>
+                </div>
+            </div>
+            <div  class="card-body">
+                <div  class="row">
+                    <div  class="col-md-3">
+                        <div  class="between:flex bottom:margin-3 ml-2">
+                            <div  class="center:flex-items">
+                                <span  class="right:marign-1">Hiển thị</span>
+
+                                <select id="ddlShowPage" style=" width: 33%; display: inline;" class="select form-select">
+                                                    <option value="10" selected="selected">10</option>
+                                                    <option value="20">20</option>
+                                                    <option value="30">30</option>
+                                                    <option value="50">50</option>
+                                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div  class="col-md-4">
+                        <select  id="select-right" class="select form-select">
+                            <option  value="">Tất cả đánh giá</option>
+                            <option  value="1">Đánh giá 1 sao</option>
+                            <option  value="2">Đánh giá 2 sao</option>
+                            <option  value="3">Đánh giá 3 sao</option>
+                            <option  value="4">Đánh giá 4 sao</option>
+                            <option  value="5">Đánh giá 5 sao</option>
+                        </select>
+                    </div>
+                    <div  class="col-md-5"><input  placeholder="Tìm kiếm..." type="text" class="form-control form-search"></div>
+                </div>
+                <div  class="table-responsive">
+                    <table  id="table1" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width:5%">STT</th>
+                                <th width="15%">Mã đơn hàng</th>
+                                <th width="20%">Họ và tên</th>
+                                <th width="15%">Số điện thoại</th>
+                                <th width="15%">Ngày đánh giá</th>
+                                <th width="15%">Đánh giá</th>
+                                <th width="25%" style="text-align: center;">Thao tác</th>
+                            </tr>
+
+                        </thead>
+                        <tbody id="tblData">
+                        </tbody>
+                    </table>
+                </div>
+                <nav  aria-label="...">
+
+                      <div class="dataTables_paginate paging_simple_numbers" id="datatable-checkbox_paginate">
+                                                <ul id="paginationUL" class="float-right" style="justify-content: center"></ul>
+                                            </div>
+
+                </nav>
+            </div>
+        </div>
+    </section>
+</div>
+
+   <partial name="DetailView" />
+
+@section Scripts{        
+        <script src="~/admin/reviews/reviews.js?v=@DateTime.Now.Ticks"></script>
+    }
+
+
+

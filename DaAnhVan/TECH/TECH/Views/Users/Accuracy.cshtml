@@ -1,0 +1,110 @@
+﻿@using TECH.Areas.Admin.Models
+@model UserModelView
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    input.error {
+        border-color: #f00 !important;
+    }
+
+    label.error {
+        clear: both;
+        color: #f00;
+        display: block;
+        text-align: left;
+        margin: unset;
+        padding: unset;
+        font-size: 13px;
+        font-weight: unset !important;
+        background: unset;
+    }
+    .form-group[class*='has-icon-'] .form-control-icon{
+        transform: unset !important;
+        top: 10% !important;
+    }
+</style>
+<section id="lien-he-voi-chung-toi" class="ftco-section custom-height">
+   <div class="parallax-img d-flex align-items-center">
+      <div class="container">
+         <div class="row d-flex justify-content-center py-5">
+            <div class="col-md-7 heading-section  fadeInUp d">
+               <h2 class="text-center">Nhập mã xác thực</h2>
+               <div class="row d-flex justify-content-center mt-5">
+                  <div class="col-md-8">
+                     <form action="#" method="#" id="Accuracy">
+                        <div class="results" style="display:none">
+                             <div class="alert alert-danger">
+                             Mã xác thực không đúng
+                           </div>
+                        </div>
+                        <div class="row">
+                           <div class="col-md-12">
+                              <div class="alert alert-warning">
+                                 <p>Mã OTP được gửi tới <span class="text-email">@Model.email</span> </p>
+                              </div>
+                           </div>
+                           <div class="col-md-12">
+                              <div class="form-group">
+                                  <input type="number" name="verify" id="verify" placeholder="Mã xác thực" class="form-control" style="border-radius: 5px;">
+                                  <span class="text-danger"></span>
+                              </div>
+                           </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block" style="background-color: rgb(0, 0, 0); border-radius: 5px; border-color: rgb(0, 0, 0);">Tiếp tục</button>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+@section Scripts{
+    <script src="~/admin/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#Accuracy").validate({
+                rules:
+                {
+                    verify: {
+                        required: true,
+                    }
+
+                },
+                messages:
+                {
+                    verify: {
+                        required: "Bạn chưa nhập mã xác thực",
+                    }
+                },
+                submitHandler: function(form) {                 
+                    $.ajax({
+                        url: '/Users/CheckAccuracy',
+                        type: 'GET',
+                        dataType: 'json',
+                        data: {
+                            codeaccuracy: $("#verify").val()
+                        },
+                        beforeSend: function() {
+                            //Loading('show');
+                        },
+                        complete: function() {
+                            //Loading('hiden');
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                window.location.href = "/tao-mat-khau-moi";
+                              
+                            }
+                            else {
+                                $(".results").show();
+                            }
+                        }
+                    })
+                }
+            });
+        })
+    </script>
+    }

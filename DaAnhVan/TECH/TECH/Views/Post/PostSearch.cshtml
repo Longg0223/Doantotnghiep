@@ -1,0 +1,122 @@
+﻿@using TECH.Areas.Admin.Models
+@using TECH.Utilities
+@model PagedResult<PostModelView>
+@{
+    Layout = null;
+}
+<style>
+   
+      .blog-entry .text .heading {
+         font-size: 20px;
+         margin-bottom: 16px;
+         text-overflow: ellipsis;
+         -webkit-line-clamp: 2;
+         overflow: hidden;
+         display: -webkit-box;
+         /* margin: 10px 0px; */
+         margin-top: 0px;
+         margin-bottom: 5px;
+         padding: 10px 0px;
+     }
+
+     .short-content {
+         text-overflow: ellipsis;
+         -webkit-line-clamp: 3;
+         overflow: hidden;
+         display: -webkit-box;
+         margin-top: 0px;
+             font-size: 15px;
+     color: black;
+         height: 55px;
+     }
+
+     .btn-search-post {
+         height: 100%;
+         width: 74px;
+         margin-top: 1px;
+         margin-right: 0px;
+         display: flex;
+         justify-content: center;
+         align-items: center;
+         right: 0;
+         cursor: pointer;
+         background: #ddd;
+         /* border: 1px solid #ddd; */
+         border-left: unset;
+         position: absolute;
+     }
+
+     .item-post {
+         display: inline-block;
+         width: 100%;
+         /*height: 180px;*/
+         border: 1px solid #ddd;
+         border-radius: 4px;
+         padding: 10px;
+         margin-bottom: 20px;
+     }
+
+     .post-right {
+         display: inline-block;
+         /*float: left;*/
+         width: 100%;
+         /*padding: 5px 0px 0px 18px;*/
+         height: 100%;
+         overflow: hidden;
+     }
+
+     .post-left {
+         /*width: 250px;*/
+         height: 100%;
+         /*float: left;*/
+     }
+
+         .post-left img {
+             height: 100%;
+             width: 100%;
+         }
+
+     .breadcum ul li a {
+         font-size: 15px;
+     }
+</style>
+@if (Model != null)
+{
+    @if (Model.Results != null && Model.Results.Count > 0)
+    {
+        <div class="row box-details custom-height">
+            @if (Model.Results != null && Model.Results.Count > 0)
+            {
+                @foreach (var item in Model.Results)
+                {
+                    <div class="col-md-4">
+                        <div class="blog-entry align-self-stretch">
+                            <div class="text d-block pl-md-12">
+                                <a href="/chi-tiet-bai-viet/@item.id" class="item-post">
+                                    <div class="post-left">
+                                        <img src="/product-post/@item.avatar" />
+                                    </div>
+
+                                    <div class="post-right">
+                                        <h3 class="heading">
+                                            @item.title
+                                        </h3>
+                                        <p class="short-content">@item.short_content</p>
+                                    </div>
+
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                }
+            }
+        </div>       
+    }
+    else{
+        <p style="width: 100%; text-align: center; margin-top: 100px;">Không tìm thấy kết quả</p>
+    }
+}
+else
+{
+    <p style="width: 100%; text-align: center; margin-top: 100px;">Không tìm thấy kết quả</p>
+}

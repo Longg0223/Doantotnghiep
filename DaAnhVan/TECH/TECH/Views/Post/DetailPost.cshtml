@@ -1,0 +1,63 @@
+﻿@using TECH.Areas.Admin.Models
+@using TECH.Utilities
+@model PostModelView
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@*<style>
+    .box-detail-post img{
+        width: 100%;
+    }
+</style>
+@if (Model != null)
+{
+    <section class="ftco-section ftco-degree-bg box-detail-post">
+   <div data-v-77c39cb3="" class="container">
+      <div data-v-77c39cb3="" class="row">
+         <div data-v-77c39cb3="" class="col-lg-8">
+            <h2 data-v-77c39cb3="" class="mb-3">@Model.title</h2>
+            @Html.Raw(Model.content)
+         </div>
+         <div data-v-77c39cb3="" class="col-lg-4 sidebar">
+              @await Component.InvokeAsync("ProductCountForCategoryIdPostComponent")
+              @await Component.InvokeAsync("RecentPostsComponent")
+         </div>
+      </div>
+   </div>
+</section>
+}
+*@
+<style>
+    .box-detail-post img {
+        width: 100%;
+        margin: 30px 0px;
+    }
+    .box-detail-post .single-page p,.box-detail-post .single-page li{
+            line-height: 1.7;
+            font-size: 16px;
+            text-align: justify;
+    }
+</style>
+@if (Model != null)
+{
+    <section class="ftco-section ftco-degree-bg box-detail-post custom-height">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-9">
+                    <h2 class="mb-3" style="color: #3d4d65 !important;font-weight: bold;">@Model.title</h2>
+                    <div class="box-title">
+                        <p class="title-post">Ngày Tạo: <span class="lable-title">@Model.created_at.Value.ToString("dd/MM/yyyy")</span> </p>
+                        @*<p class="title-post">Người Tạo: <span class="lable-title">@Model.author_name</span> </p>*@
+                    </div>
+                    <div class="box-imgae">
+                        <img loading="lazy" decoding="async" width="790" style="height: 450px;margin-top: 10px;" src="/product-post/@Model.avatar" class="attachment-original size-original lazy-load-active">
+                    </div>
+                 
+                    @Html.Raw(Model.content)
+
+                </div>               
+            </div>
+        </div>
+    </section>
+}

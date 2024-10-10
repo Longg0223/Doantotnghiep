@@ -1,0 +1,122 @@
+﻿@{
+    Layout = null;
+}
+<style type="text/css">
+    input.error {
+        border-color: #f00 !important;
+    }
+
+    .table-custom thead th {
+        font-size: 15px;
+    }
+
+    label.error {
+        clear: both;
+        color: #f00;
+        display: block;
+        text-align: left;
+        margin: unset;
+        padding: unset;
+        font-size: 15px;
+        font-weight: unset !important;
+        background: unset;
+    }
+    .form-group[class*='has-icon-'] .form-control-icon{
+        transform: unset !important;
+        top: 10% !important;
+    }
+    .required{
+        color: #f00;
+    }
+    .item-image{
+        width: 150px;
+        height: 100px;
+        border-radius: 4px;
+    }
+    .custom-button{
+            margin-bottom: 5px;
+        }
+
+          .required {
+        color: #f00;
+    }
+
+    input.error {
+        border-color: #f00 !important;
+    }
+
+    label.error {
+        clear: both;
+        color: #f00;
+        display: block;
+        text-align: left;
+        margin: unset;
+        padding: unset;
+        font-size: 15px;
+        font-weight: unset !important;
+        background: unset;
+    }
+
+    .box-image {
+       /* width: 150px;
+        height: 120px;*/
+        width: 120px;
+        height: 80px;
+        background: url('/image-default/default.png');
+        background-position: center;
+        background-repeat: no-repeat !important;
+        background-size: contain !important;
+        border-radius: 4px;
+        margin-top: 10px;
+        cursor: pointer;
+        float: left;
+        margin-right: 10px;
+    }
+    .remove-image{
+        float: right;
+        height: 20px;
+        width: 20px;
+        background: #ddd;
+        border-radius: 50%;
+        text-align: center;
+        font-size: 14px;
+        margin: 5px 5px 0px 0px;
+    }
+</style>
+<div  id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalTitle" class="modal fade" aria-modal="true">
+   <div  role="document" class="modal-dialog">
+      <form id="form-submit" action="#">
+         <div  class="modal-content">
+            <div  class="modal-header bg-primary">
+               <h5  id="titleModal" class="modal-title white ">Thêm mới danh mục</h5>
+               <button  type="button" data-dismiss="modal" aria-label="Close" class="close"><span  aria-hidden="true">×</span></button>
+            </div>
+            <div  class="modal-body">
+               <div  class="row">
+                  <div  class="col-12">
+                     <div  class="form-group">
+                        <label  for="first-name-icon"> Tên danh mục <span class="required">(*)</span></label> 
+                        <div class="position-relative">
+                            <input  type="text" placeholder="Nhập tên danh mục" id="category-name" class="form-control txtname" name="name">
+                             <label id="phone_number-error" class="error categoryname-exist" for="category-name" style="display: none;">Tên danh mục đã tồn tại</label>
+                        </div>                       
+                     </div>
+                  </div>
+
+               </div>
+                 @* <div class="row">
+                    <div class="col-12 mb-2">
+                        <div class="form-group product-images">
+                            <label style="display: block">Icon <span class="required">(*)</span></label>
+                            <input type="file" id="productimages" name="productimages" class="form-control filesImages" multiple style="display:none"> <!----> <!---->
+                            <label class="box-image" for="productimages"></label>   
+                            <div class="productimages"></div>
+                        </div>
+                    </div>
+                </div>  *@
+            </div>
+            <div  class="modal-footer"><button  type="submit" class="btn btn-primary me-1 mb-1 btn-submit-format">Thêm mới</button></div>
+         </div>
+      </form>
+   </div>
+</div>

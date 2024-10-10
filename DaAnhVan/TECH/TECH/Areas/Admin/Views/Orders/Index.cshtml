@@ -1,0 +1,153 @@
+﻿@{
+    ViewData["Title"] = "Quản lý tài khoản";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@*<style>
+    .fisrt-image-product {
+        width: 77px;
+        height: 55px;
+        border-radius: 4px;
+    }
+</style>*@
+<style type="text/css">
+    input.error {
+        border-color: #f00 !important;
+    }
+
+    label.error {
+        clear: both;
+        color: #f00;
+        display: block;
+        text-align: left;
+        margin: unset;
+        padding: unset;
+        font-size: 15px;
+        font-weight: unset !important;
+        background: unset;
+    }
+
+    .form-group[class*='has-icon-'] .form-control-icon {
+        transform: unset !important;
+        top: 10% !important;
+    }
+
+    .required {
+        color: #f00;
+    }
+
+    .item-image {
+        width: 10vw;
+        height: 15vh;
+    }
+</style>
+
+
+
+<div class="page-heading product-list">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Quản lý đơn hàng</h3>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+                        <li aria-current="page" class="breadcrumb-item active">Quản lý đơn hàng</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <section class="section">
+        <div class="card">
+            <div>
+                <!---->
+                <div class="snotify snotify-left_top"></div>
+                <div class="snotify snotify-left_center"></div>
+                <div class="snotify snotify-left_bottom"></div>
+                <div class="snotify snotify-right_top"></div>
+                <div class="snotify snotify-right_center"></div>
+                <div class="snotify snotify-right_bottom"></div>
+                <div class="snotify snotify-center_top"></div>
+                <div class="snotify snotify-center_center"></div>
+                <div class="snotify snotify-center_bottom"></div>
+            </div>
+            <div class="card-header">
+                <div class="row">
+                    <div class="col-md-6">Danh sách các đơn đặt hàng</div>
+                    <div class="col-md-6">
+                        @*<button type="button"  data-toggle="modal" data-target="#userModal" class="btn btn-primary btn-right btn-addorupdate" style="float:right">
+                        <span style="display: flex;  align-items: center;"><i class="bi bi-plus-circle"></i> <span style="margin-left: 6px; padding-top: 2px;"> Tạo mới</span></span>
+                        </button>*@
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="between:flex bottom:margin-3 ml-2">
+                            <div class="center:flex-items">
+                                <span class="right:marign-1">Hiển thị</span>
+
+                                <select id="ddlShowPage" style=" width: 33%; display: inline;" class="select form-select">
+                                    <option value="10" selected="selected">10</option>
+                                    <option value="20">20</option>
+                                    <option value="30">30</option>
+                                    <option value="50">50</option>
+                                </select>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                       <select id="select-right" class="select form-select">
+                           <option value="">Tất cả</option>
+                           <option value="0">Đang xử lý</option>
+                           <option value="1">Đã hoàn thành</option>
+                           <option value="2">Đã bị huỷ</option>
+                        </select>
+                    </div>
+                    <div class="col-md-5"><input placeholder="Tìm kiếm..." type="text" class="form-control form-search"></div>
+                </div>
+                <div class="table-responsive">
+                    <table id="table1" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th style="width:5%">STT</th>
+                                <th class="text-center">Mã đơn hàng</th>
+                                <th class="text-center">Họ và tên</th>
+                                <th class="text-center">Tổng đơn hàng</th>
+                                <th class="text-center">Hình thức mua</th>
+                                <th class="text-center">Ngày đặt hàng</th>
+                                <th class="text-center">Tình trạng đơn hàng</th>
+                            </tr>
+
+                        </thead>
+                        <tbody id="tblData">
+                        </tbody>
+                    </table>
+                </div>
+                <nav aria-label="...">
+
+                    <div class="dataTables_paginate paging_simple_numbers" id="datatable-checkbox_paginate">
+                        <ul id="paginationUL" class="float-right" style="justify-content: center"></ul>
+                    </div>
+
+                </nav>
+            </div>
+        </div>
+    </section>
+</div>
+
+
+
+@section Scripts{
+    @*<script src="~/admin/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="~/admin/plugins/ckeditor/ckeditor.js"></script>*@
+    <script src="~/admin/orders/orders.js?v=@DateTime.Now.Ticks"></script>
+    }
+
+
+

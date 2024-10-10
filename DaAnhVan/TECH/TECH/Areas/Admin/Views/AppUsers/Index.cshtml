@@ -1,0 +1,347 @@
+﻿@{
+    ViewData["Title"] = "Quản lý tài khoản";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@*<style>
+    .fisrt-image-product {
+        width: 77px;
+        height: 55px;
+        border-radius: 4px;
+    }
+</style>*@
+ <style type="text/css">
+    input.error {
+        border-color: #f00 !important;
+    }
+
+    label.error {
+        clear: both;
+        color: #f00;
+        display: block;
+        text-align: left;
+        margin: unset;
+        padding: unset;
+        font-size: 13px;
+        font-weight: unset !important;
+        background: unset;
+    }
+    .form-group[class*='has-icon-'] .form-control-icon{
+        transform: unset !important;
+        top: 10% !important;
+    }
+</style>
+
+
+
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Quản lý tài khoản</h3>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+                        <li aria-current="page" class="breadcrumb-item active">Quản lý tài khoản</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <section class="section">
+        <div  class="card">
+            <div >
+                <!---->
+                <div class="snotify snotify-left_top"></div>
+                <div class="snotify snotify-left_center"></div>
+                <div class="snotify snotify-left_bottom"></div>
+                <div class="snotify snotify-right_top"></div>
+                <div class="snotify snotify-right_center"></div>
+                <div class="snotify snotify-right_bottom"></div>
+                <div class="snotify snotify-center_top"></div>
+                <div class="snotify snotify-center_center"></div>
+                <div class="snotify snotify-center_bottom"></div>
+            </div>
+            <div  class="card-header">
+                <div  class="row">
+                    <div  class="col-md-6">Danh sách các tài khoản</div>
+                    <div  class="col-md-6">
+                        <button type="button"  data-toggle="modal" data-target="#userModal" class="btn btn-primary btn-right btn-addorupdate" style="float:right">
+                            <span style="display: flex;  align-items: center;"><i class="bi bi-plus-circle"></i> <span style="margin-left: 6px; padding-top: 2px;"> Tạo mới</span></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div  class="card-body">
+                <div  class="row">
+                    <div  class="col-md-3">
+                        <div  class="between:flex bottom:margin-3 ml-2">
+                            <div  class="center:flex-items">
+                                <span  class="right:marign-1">Hiển thị</span>
+                              @*  <select  id="form-select" class="select form-select">
+                                    <option  value="5">
+                                        5
+                                    </option>
+                                    <option  value="10">
+                                        10
+                                    </option>
+                                    <option  value="25">
+                                        25
+                                    </option>
+                                    <option  value="50">
+                                        50
+                                    </option>
+                                </select>*@
+
+                                <select id="ddlShowPage" style=" width: 33%; display: inline;" class="select form-select">
+                                                    <option value="10" selected="selected">10</option>
+                                                    <option value="20">20</option>
+                                                    <option value="30">30</option>
+                                                    <option value="50">50</option>
+                                                </select>
+
+
+                            </div>
+                        </div>
+                    </div>
+                    <div  class="col-md-4">
+                        <select  id="select-right" class="select form-select">
+                            <option  value="">Tất cả người dùng</option>
+                            <option  value="0">Quản trị viên</option>
+                            <option  value="1">Khách hàng</option>
+                        </select>
+                    </div>
+                    <div  class="col-md-5"><input  placeholder="Tìm kiếm..." type="text" class="form-control form-search"></div>
+                </div>
+                <div  class="table-responsive">
+                    <table  id="table1" class="table table-striped">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th >Họ và tên</th>
+                                <th >Email</th>
+                                <th >Số điện thoại</th>
+                                <th >Loại tài khoản</th>
+                                <th style="text-align: center;">Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tblData">
+                            @*<tr >
+                                <td >Quang Huynh</td>
+                                <td >quanghuynh2100@gmail.com</td>
+                                <td >0916252697</td>
+                                <td >
+                                    <div >Khách hàng</div>
+                                </td>
+                                <td ><button  class="btn btn-secondary"><i  class="bi bi-eye-slash"></i></button> <button  class="btn btn-primary"><i  class="bi bi-pencil-square"></i></button> <button  class="btn btn-danger"><i  class="bi bi-trash"></i></button></td>
+                            </tr>
+                            <tr >
+                                <td >quanghuynh</td>
+                                <td >quanghuynh@gmail.com</td>
+                                <td >0433243241</td>
+                                <td >
+                                    <div >Khách hàng</div>
+                                </td>
+                                <td ><button  class="btn btn-dark"><i  class="bi bi-eye"></i></button> <button  class="btn btn-primary"><i  class="bi bi-pencil-square"></i></button> <button  class="btn btn-danger"><i  class="bi bi-trash"></i></button></td>
+                            </tr>
+                            <tr >
+                                <td >taikhoan</td>
+                                <td >taikhoan1@gmail.com</td>
+                                <td >0987654321</td>
+                                <td >
+                                    <div >Khách hàng</div>
+                                </td>
+                                <td ><button  class="btn btn-dark"><i  class="bi bi-eye"></i></button> <button  class="btn btn-primary"><i  class="bi bi-pencil-square"></i></button> <button  class="btn btn-danger"><i  class="bi bi-trash"></i></button></td>
+                            </tr>
+                            <tr >
+                                <td >Thị Thùi</td>
+                                <td >thithui123@gmail.com</td>
+                                <td >0919446443</td>
+                                <td >
+                                    <div >Khách hàng</div>
+                                </td>
+                                <td ><button  class="btn btn-dark"><i  class="bi bi-eye"></i></button> <button  class="btn btn-primary"><i  class="bi bi-pencil-square"></i></button> <button  class="btn btn-danger"><i  class="bi bi-trash"></i></button></td>
+                            </tr>
+                            <tr >
+                                <td >PhongMap</td>
+                                <td >gulic2k@gmail.com</td>
+                                <td >09321234564</td>
+                                <td >
+                                    <div >Khách hàng</div>
+                                </td>
+                                <td ><button  class="btn btn-dark"><i  class="bi bi-eye"></i></button> <button  class="btn btn-primary"><i  class="bi bi-pencil-square"></i></button> <button  class="btn btn-danger"><i  class="bi bi-trash"></i></button></td>
+                            </tr>
+                            <tr >
+                                <td >oooooooo</td>
+                                <td >gggg1@gmail.com</td>
+                                <td >0123456788</td>
+                                <td >
+                                    <div >Khách hàng</div>
+                                </td>
+                                <td ><button  class="btn btn-dark"><i  class="bi bi-eye"></i></button> <button  class="btn btn-primary"><i  class="bi bi-pencil-square"></i></button> <button  class="btn btn-danger"><i  class="bi bi-trash"></i></button></td>
+                            </tr>
+                            <tr >
+                                <td >Thi Thui</td>
+                                <td >vokimthuycs@gmail.com</td>
+                                <td >0919446444</td>
+                                <td >
+                                    <div >Khách hàng</div>
+                                </td>
+                                <td ><button  class="btn btn-dark"><i  class="bi bi-eye"></i></button> <button  class="btn btn-primary"><i  class="bi bi-pencil-square"></i></button> <button  class="btn btn-danger"><i  class="bi bi-trash"></i></button></td>
+                            </tr>
+                            <tr >
+                                <td >Thi Thui</td>
+                                <td >thithui124@gmail.com</td>
+                                <td >0919446445</td>
+                                <td >
+                                    <div >Khách hàng</div>
+                                </td>
+                                <td ><button  class="btn btn-dark"><i  class="bi bi-eye"></i></button> <button  class="btn btn-primary"><i  class="bi bi-pencil-square"></i></button> <button  class="btn btn-danger"><i  class="bi bi-trash"></i></button></td>
+                            </tr>
+                            <tr >
+                                <td >PhongMap</td>
+                                <td >gulic2001@gmail.com</td>
+                                <td >0123456789</td>
+                                <td >
+                                    <div >Khách hàng</div>
+                                </td>
+                                <td ><button  class="btn btn-dark"><i  class="bi bi-eye"></i></button> <button  class="btn btn-primary"><i  class="bi bi-pencil-square"></i></button> <button  class="btn btn-danger"><i  class="bi bi-trash"></i></button></td>
+                            </tr>
+                            <tr >
+                                <td >Lam Anhh</td>
+                                <td >lamanhtr@gmail.com</td>
+                                <td >0924154252</td>
+                                <td >
+                                    <div >Khách hàng</div>
+                                </td>
+                                <td ><button  class="btn btn-dark"><i  class="bi bi-eye"></i></button> <button  class="btn btn-primary"><i  class="bi bi-pencil-square"></i></button> <button  class="btn btn-danger"><i  class="bi bi-trash"></i></button></td>
+                            </tr>
+                            <tr  style="display: none;">
+                                <td  colspan="5">
+                                    <div  class="alert alert-danger">Không tìm thấy kết quả phù hợp!</div>
+                                </td>
+                            </tr>*@
+                        </tbody>
+                    </table>
+                </div>
+                <nav  aria-label="...">
+                    @*<ul class="pagination justify-content-center">
+                        <li class="page-item disabled"><a class="page-link"> &lt;&lt; </a></li>
+                        <li class="page-item disabled"><a class="page-link"> &lt; </a></li>
+                        <li class="page-item active">
+                            <a class="page-link">
+                                1
+                                <span class="sr-only"></span>
+                            </a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link">
+                                2
+                                <!---->
+                            </a>
+                        </li>
+                        <li class="page-item"><a class="page-link"> &gt; </a></li>
+                        <li class="page-item"><a class="page-link"> &gt;&gt; </a></li>
+                    </ul>*@
+
+                      <div class="dataTables_paginate paging_simple_numbers" id="datatable-checkbox_paginate">
+                                                <ul id="paginationUL" class="float-right" style="justify-content: center"></ul>
+                                            </div>
+
+                </nav>
+            </div>
+          @*  <div  id="userModal" tabindex="-1" role="dialog" aria-labelledby="userModalTitle" aria-hidden="true" class="modal fade bd-example-modal-lg">
+                <div  role="document" class="modal-dialog modal-lg">
+                    <form >
+                        <div  class="modal-content">
+                            <div  class="modal-header bg-primary">
+                                <h5  id="userModalTitle" class="modal-title white">Thêm mới tài khoản</h5>
+                                <button  type="button" data-dismiss="modal" aria-label="Close" class="close"><span  aria-hidden="true">×</span></button>
+                            </div>
+                            <div  class="modal-body">
+                                <div  class="row">
+                                    <div  class="col-6">
+                                        <div  class="form-group has-icon-left">
+                                            <label  for="first-name-icon"> Họ và tên </label>
+                                            <div  class="position-relative">
+                                                <input  type="text" placeholder="Nhập họ và tên" id="full_name" name="full_name" class="form-control">
+                                                <div  class="form-control-icon"><i  class="bi bi-person"></i></div>
+                                            </div>
+                                            <!---->
+                                        </div>
+                                    </div>
+                                    <div  class="col-6">
+                                        <div  class="form-group has-icon-left">
+                                            <label  for="email-id-icon">Email</label>
+                                            <div  class="position-relative">
+                                                <input  type="text" placeholder="abc@email.com" id="email" name="email" class="form-control">
+                                                <div  class="form-control-icon"><i  class="bi bi-envelope"></i></div>
+                                            </div>
+                                            <!---->
+                                        </div>
+                                    </div>
+                                    <div  class="col-6">
+                                        <div  class="form-group has-icon-left">
+                                            <label  for="mobile-id-icon"> Số điện thoại </label>
+                                            <div  class="position-relative">
+                                                <input  type="text" placeholder="0123456789" id="phone_number" name="phone_number" class="form-control">
+                                                <div  class="form-control-icon"><i  class="bi bi-phone"></i></div>
+                                            </div>
+                                            <!---->
+                                        </div>
+                                    </div>
+                                    <div  class="col-6">
+                                        <div  class="form-group has-icon-left">
+                                            <label  for="password-id-icon">Loại tài khoản</label>
+                                            <div  class="position-relative">
+                                                <select  id="role" name="role" class="form-select select">
+                                                    <option  value="">Chọn loại tài khoản</option>
+                                                    <option  value="0">Quản trị viên</option>
+                                                    <option  value="1">Khách hàng</option>
+                                                </select>
+                                            </div>
+                                            <!---->
+                                        </div>
+                                    </div>
+                                    <div  class="col-12">
+                                        <div  class="form-group has-icon-left">
+                                            <label  for="password-id-icon">Password</label>
+                                            <div  class="position-relative">
+                                                <input  type="password" placeholder="*******" id="password" name="password" class="form-control">
+                                                <div  class="form-control-icon"><i  class="bi bi-lock"></i></div>
+                                            </div>
+                                            <!---->
+                                        </div>
+                                    </div>
+                                    <div  class="col-12">
+                                        <div  class="form-group has-icon-left">
+                                            <label  for="password-id-icon">Địa chỉ</label>
+                                            <div  class="position-relative">
+                                                <textarea  name="address" id="address" rows="2" placeholder="..." class="form-control"></textarea>
+                                                <div  class="form-control-icon"><i  class="bi bi-geo-alt"></i></div>
+                                            </div>
+                                            <!---->
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div  class="modal-footer"><button  type="submit" class="btn btn-primary me-1 mb-1">Thêm mới</button></div>
+                        </div>
+                    </form>
+                </div>
+            </div>*@
+        </div>
+    </section>
+</div>
+
+   <partial name="AddOrUpdate" />
+
+@section Scripts{
+      @*  <script src="~/admin/plugins/select2/js/select2.min.js"></script>*@
+        <script src="~/admin/plugins/jquery-validation/jquery.validate.min.js"></script>
+        <script src="~/admin/appusers/appusers.js?v=@DateTime.Now.Ticks"></script>
+    }
+
+
+

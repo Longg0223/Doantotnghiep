@@ -1,0 +1,25 @@
+﻿@using TECH.Areas.Admin.Models
+@using TECH.Utilities
+@model PagedResult<PostModelView>
+
+@if (Model != null && Model.Results != null && Model.Results.Count > 0)
+{
+    <div data-v-fabbb9d8="" class="sidebar-box">
+        <h3 data-v-fabbb9d8="" class="heading">Bài viết gần đây</h3>
+        @foreach (var item in Model.Results)
+        {
+            <div data-v-fabbb9d8="" class="block-21 mb-4 d-flex">
+                <a data-v-fabbb9d8="" class="blog-img mr-4"><img data-v-fabbb9d8="" src="/product-post/@item.avatar" alt="" class="img-style"></a>
+                <div data-v-fabbb9d8="" class="text">
+                    <h3 data-v-fabbb9d8="" class="heading-1"><a data-v-fabbb9d8="" href="/chi-tiet-bai-viet/@item.id">@item.title</a></h3>
+                    <div data-v-fabbb9d8="" class="meta">
+                        <div data-v-fabbb9d8=""><span data-v-fabbb9d8="" class="icon-calendar"></span>@item.created_at.Value.ToString("dd/MM/yyyy")</div>
+                        <div data-v-fabbb9d8=""><span data-v-fabbb9d8="" class="icon-person"></span> @item.author_name</div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
+
+

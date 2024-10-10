@@ -1,0 +1,564 @@
+﻿@using TECH.Areas.Admin.Models
+@model ProductModelView
+@{
+    ViewData["Title"] = "ProductCategory";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        font-size: 14px;
+    }
+
+    h2 {
+        font-size: 14px;
+    }
+
+    .tt-prod {
+        color: #4fb100;
+        text-transform: uppercase;
+        font-size: 17px;
+        font-weight: bold;
+    }
+
+    .min-wrap h2 {
+        padding: 10px 0;
+        color: #f8456a;
+        font-weight: bold;
+    }
+
+    h2.price-prod2 {
+        font-size: 16px;
+        color: #999 !important;
+        margin: 0;
+    }
+
+    .price-prod {
+        color: #f00;
+        font-size: 25px;
+        margin: 4px 0px;
+    }
+
+
+    .product-detail .tt-prod {
+               margin: 0px;
+        padding: 0px;
+        color: #333333;
+    }
+
+    .product-detail .price-prod {
+              padding: 0px 0px;
+        color: #f8456a;
+        font-weight: bold;
+        display: inline-block;
+        float: left;
+    }
+
+    .product-detail .price-prod2 {
+        font-weight: bold;
+        padding-bottom: 0px;
+        padding-top: 3px;
+                margin-left: 15px;
+                        display: inline-block;
+    }
+    .description-productdetail p{
+            line-height: 1.7;
+    font-size: 15px;
+    }
+    .description-productdetail {
+    font-size: 15px;
+    }
+
+    .btn-add-cart {
+      /*  background: #8fa815;
+        padding: 6px 0px !important;*/
+                font-weight: bold;
+            background: red;
+        border: 1px solid red;
+        color: #fff;
+        padding: 8px 15px !important;
+        margin-top: 14px;
+        color: #fff;
+    }
+
+    .nav-tabs {
+        border-bottom: 2px solid #8fa815;
+    }
+
+    .product-detail h2 {
+        padding: 10px 0;
+        color: #f8456a;
+        font-weight: bold;
+    }
+
+    .nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+        color: #fff;
+        cursor: default;
+        background-color: #8fa815;
+        border: 1px solid #ddd;
+        border-bottom-color: transparent;
+        padding: 10px;
+        /* height: 40px; */
+        display: inline-block;
+    }
+
+    .nav-tabs > li {
+        margin-bottom: 0px;
+    }
+
+    .product-content {
+        box-shadow: 0px 4px 50px rgb(0 0 0 / 20%);
+        border-radius: 4px;
+        background: #fff;
+        padding: 10px;
+            border-radius: 4px;
+    }
+
+    .product-content-left {
+        /*border-right: 1px solid #ddd;*/
+        padding: 20px;
+    }
+
+    .mota {
+        margin-top: 40px;
+    }
+
+    .tab-content {
+        padding: 20px;
+    }
+
+    .sub_desc {
+        margin-top: 20px;
+        background-color: #e7ffe2;
+        border: 1px solid #b1dab3;
+        padding: 10px;
+        border-radius: 5px;
+        -webkit-border-radius: 5px;
+        -moz-border-radius: 5px;
+        -o-border-radius: 5px;
+        -moz-box-shadow: inset 1px 1px 1px #fff;
+        -webkit-box-shadow: inset 1px 1px 1px #fff;
+        box-shadow: inset 1px 1px 1px #fff;
+        -o-box-shadow: inset 1px 1px 1px #fff;
+        color: #189001;
+        margin-bottom: 19px;
+    }
+
+        .sub_desc p {
+            margin: 0;
+            padding: 5px 0px;
+        }
+
+            .sub_desc p a {
+                background: #89a600;
+                padding: 2px 6px;
+                border-radius: 3px;
+                color: #fff !important;
+            }
+
+    .txt-title, .txt-title-danh-muc {
+        margin: 11px 0px;
+    }
+
+    .danh-muc-name {
+        color: #0071c5;
+        font-weight: bold;
+    }
+
+    .box-quantity {
+        margin: 5px 0px;
+        display: inline-flex;
+    }
+
+    .bg-primary {
+        background-color: #8fa815 !important;
+    }
+
+    .modal-title {
+        color: #fff !important;
+        font-size: 20px;
+    }
+
+    .choosesize {
+        background: #f4f4f4;
+        padding: 10px;
+        overflow: hidden;
+        margin-bottom: 10px;
+    }
+    .choosesize, ul.ulsize li {
+    border: 1px solid #dadada;
+}
+
+        .choosesize li {
+    list-style: none;
+}
+
+        .choosesize p {
+            font-weight: 400;
+            text-transform: uppercase;
+            margin: 0;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        ul.ulsize li:hover {
+            border-color: red;
+        }
+
+    ul.ulsize li {
+        float: left;
+        margin-right: 5px;
+        text-align: center;
+        width: 40px;
+        height: 40px;
+        cursor: pointer;
+        background: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    ul.ulsize li.tick {
+    /*background: url(images/sticked.png) right bottom no-repeat #fff;*/
+    border-color: red;
+}
+.product-description-wrapper {
+    overflow: hidden;
+    font-weight: initial;
+
+}
+
+    .product-description-wrapper {
+        overflow: hidden;
+        font-weight: initial;
+    }
+        .product-description-wrapper div.tab {
+        display: block;
+        position: relative;
+               background: #6fd6c12b;
+                   margin-bottom: 20px;
+    }
+        .product-description-wrapper div.tab button {
+                
+          color: #0a0a0a;
+    text-align: center;
+    float: left;
+    outline: none;
+    cursor: pointer;
+    padding: 15px;
+    font-weight: bold;
+    font-size: 20px;
+    }
+        .entry-content {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+    .entry-content p {
+    margin-bottom: 15px;
+}
+    .entry-content p {
+        font-size: 18px;
+    }
+    .product-description-wrapper .pro-tabcontent .tab_list_product table tr {
+    background: #fafafa;
+}
+    .product-description-wrapper .pro-tabcontent .tab_list_product table tr:nth-child(2n + 1) {
+        background-color: #fff;
+    }
+        .product-description-wrapper .pro-tabcontent .tab_list_product table tr td:first-child {
+        width: 220px;
+        vertical-align: top;
+        color: #4f4f4f;
+        font-size: 13px;
+        font-weight: 500;
+        background: #efefef;
+        font-weight: 500;
+    }
+        .product-description-wrapper .pro-tabcontent .tab_list_product table tr td {
+        padding: 10px 15px;
+        line-height: 18px;
+        border: none;
+        font-size: 13px;
+        color: #000;
+    }
+    .product-description-wrapper .pro-tabcontent {
+        display: none;
+        padding: 15px;
+        -webkit-animation: fadeEffect 1s;
+        animation: fadeEffect 1s;
+    }
+    .danh-muc-lable{
+        text-transform: capitalize;
+    }
+    .product-short-description li {
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+</style>
+<input type="hidden" class="product-id" value="@Model.id" />
+
+<section id="breadcrumb-wrapper" style="    background: #fff;">
+   <div class="breadcrumb-content">
+      <div class="wrapper">
+         <div class="inner">
+            <div class="breadcrumb-small">
+               <a href="/" title="Quay trở về trang chủ">Trang chủ</a>
+               <span class="mr_lr">&nbsp;/&nbsp;</span>
+                    <a href="/san-pham/@Model.category_id" target="_self">
+               <span>@Model.categorystr</span>
+               </a>
+               <span class="mr_lr">&nbsp;/&nbsp;</span>
+                    <span>@Model.name</span>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+
+
+<div class="product-detail custom-height" style="padding-top: unset;padding-bottom: 0px;">
+    <section class="ftco-section" style="background: #f7f7f7;padding-top: 15px;padding-bottom: 40px;">
+        <div class="container">
+            <div class="breadcum">
+              
+                <div class="clear"></div>
+            </div>
+            <div class="product-content">
+                <div class="row">
+                    <div class="col-sm-12">
+                        @if(Model != null){
+
+                      
+                        <div class="product-content-left">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="m-i2-cpd box-uof-img">
+                                        <img style="width: 100%; height: 466px;" src="/product-image/@Model.ImageModelView[0].name" class=" ls-is-cached lazyloaded" />
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <input type="hidden" value="@(Model.price_sell.HasValue && Model.price_sell.Value > 0 ? Model.price_sell.Value:0)" class="product-price" />
+                                    <div class="b-s-1 bg-shadow">
+                                        <h4 class="tt-prod NoneMB">@Model.name</h4>
+                                        <h2 class="price-prod NoneMB">
+                                            @{
+                                                string priceStr = "";
+                                                string price_reducedstr = "";
+                                                if (Model.price_sell.HasValue && Model.price_sell.Value > 0)
+                                                {
+                                                    priceStr = Model.price_sell.Value.ToString("#,###");
+                                                }
+                                                if (Model.price_reduced.HasValue && Model.price_reduced.Value > 0)
+                                                {
+                                                    price_reducedstr = Model.price_reduced.Value.ToString("#,###");
+                                                }
+
+                                            }
+                                            @priceStr đ
+                                        </h2>
+                                        @if (!string.IsNullOrEmpty(price_reducedstr))
+                                        {
+                                            <h2 class="price-prod2 NoneMB">
+                                                <strike style="display: inline-block; padding-top: 7px;  font-size: 19px;">@price_reducedstr đ</strike>
+                                            </h2>
+                                        }                                       
+                                        <p class="txt-title-danh-muc">
+                                            <span class="danh-muc-lable">Danh mục: </span>
+                                            <span class="danh-muc-name"> @Model.categorystr</span>
+                                        </p>
+                                        @if(!string.IsNullOrEmpty(Model.trademarkStr)){
+                                            <p class="txt-title-danh-muc">
+                                            <span class="danh-muc-lable">Thương Hiệu: </span>
+                                            <span class="danh-muc-name"> @Model.trademarkStr</span>
+                                        </p>
+                                        }
+                                        @if (!string.IsNullOrEmpty(Model.shortdescription))
+                                        {
+                                            <div class="product-short-description">
+                                                   @Html.Raw(Model.shortdescription)
+                                            </div>
+                                        }
+                                        
+                                        <div class="grid mg-left-5">
+                                            <div class="grid__item large--one-fifth medium--one-fifth small--one-whole pd-left5">
+                                                <div class="product-quantity clearfix">
+                                                    <div class="qty-addcart clearfix">
+                                                        <span>Số lượng </span>
+                                                        <div class="js-qty">
+                                                            <button type="button" class="js-qty__adjust js-qty__adjust--minus icon-fallback-text quantity-left-minus minus">
+                                                                <span class="icon icon-minus" aria-hidden="true"></span>
+                                                                <span class="fallback-text" aria-hidden="true">−</span>
+                                                                <span class="visually-hidden">Giảm số lượng sản phẩm đi 1</span>
+                                                            </button>
+                                                            <input type="number" class="js-qty__num input-number" value="1" min="1"  aria-label="quantity" oninput="this.value = !!this.value && Math.abs(this.value) >= 1 ? Math.abs(this.value) : 1" pattern="[0-9]*" name="quantity" id="quantity">
+                                                            <button type="button" class="js-qty__adjust js-qty__adjust--plus icon-fallback-text quantity-right-plus plus" >
+                                                                <span class="icon icon-plus" aria-hidden="true"></span>
+                                                                <span class="fallback-text" aria-hidden="true">+</span>
+                                                                <span class="visually-hidden">Tăng số lượng sản phẩm lên 1</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                         <a href="javascript:void(0)" class="btn btn-black py-3 px-5 btn-block btn-add-cart" style="color: #fff;font-weight: bold;">
+                                                    THÊM VÀO GIỎ HÀNG <i class="ion-ios-add ml-1"></i>
+                                                </a>
+
+                                     
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12" style="padding-right: 35px; padding-left: 35px;">
+                                <div class="grid">
+                                    <strong>
+                                    </strong>
+                                    <div class="grid__item medium--one-whole small--one-whole">
+                                        <strong>
+                                        </strong>
+                                        <div class="product-description-wrapper">
+                                             <div class="tab clearfix">
+                                                <button class="pro-tablinks active" id="defaultOpenProTabs">THÔNG TIN CHI TIẾT</button>
+                                                </div>
+                                                 @Html.Raw(Model.description)
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        }else{
+                            <p></p>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    @await Component.InvokeAsync("RelatedProductsComponent",new {categoryId= Model.category_id,productId=Model.id})
+</div>
+<div id="categoryModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalTitle" class="modal fade" aria-modal="true">
+    <div role="document" class="modal-dialog modal-dialog-centered">
+        <form id="form-submit" action="#" style="width: 100%;">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h5 id="titleModal" class="modal-title white ">Vui lòng đăng nhập</h5>
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <a href="/dang-nhap" class="btn btn-primary me-1 mb-1 btn-submit-format btn-success" style="border: none;color: #fff;">Đăng nhập</a>
+                    <a href="#" class="btn btn-primary me-1 mb-1 btn-submit-format" data-dismiss="modal" style="background: #ddd; border: none;color: black;">Hủy</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="categoryModalOverStock" tabindex="-1" role="dialog" aria-labelledby="categoryModalTitle" class="modal fade" aria-modal="true">
+    <div role="document" class="modal-dialog modal-dialog-centered">
+        <form id="form-submit" action="#" style="width: 100%;">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h5 id="titleModal" class="modal-title white ">Số lượng mua vượt quá số lượng trong kho </h5>
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+                </div>
+                <div class="modal-body">
+                    <p>Tổng số lượng còn lại trong kho là: <span class="soluongcong"></span></p>
+                </div>
+                <div class="modal-footer">
+                    @*<a href="/dang-nhap" class="btn btn-primary me-1 mb-1 btn-submit-format btn-success" style="border: none;color: #fff;">Đăng nhập</a>*@
+                    <a href="#" class="btn btn-primary me-1 mb-1 btn-submit-format" data-dismiss="modal" style="background: #ddd; border: none;color: black;">OK</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div id="CartsModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalTitle" class="modal fade" aria-modal="true">
+    <div role="document" class="modal-dialog modal-dialog-centered">
+        <form id="form-submit" action="#">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h5 id="titleModal" class="modal-title white ">Bạn đã thêm vào giỏ hàng thành công</h5>
+                    <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
+                </div>
+                @*  <div class="modal-body">
+                </div>*@
+                <div class="modal-footer">
+
+                    <a href="#" class="btn btn-primary me-1 mb-1 btn-submit-format" data-dismiss="modal" style="background: green;color: #fff;">OK</a>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".plus").click(function () {
+                debugger;
+                var value = parseInt($("#quantity").val());
+                if (value < 9999 && value >= 1) {
+                    $("#quantity").val(value + 1);
+                }
+
+            })
+            $(".minus").click(function () {
+                var value = parseInt($("#quantity").val());
+                if (value > 1) {
+                    $("#quantity").val(value - 1);
+                }
+
+            })
+            $(".btn-add-cart").click(function () {
+                var price = parseInt($("#quantity").val()) * parseInt($(".product-price").val());
+                $.ajax({
+                    url: '/Carts/Add',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        product_id: $(".product-id").val(),
+                        quantity: $("#quantity").val(),
+                        price: price
+                        //sizeId: parseInt($(".sizes.tick").attr('data-size'))
+                    },
+                    beforeSend: function () {
+                    },
+                    complete: function () {
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            $("#CartsModal").modal("show");
+                        }
+                        else if (response.overstock && response.tongsoconlai > 0) {
+                            $("#categoryModalOverStock").modal("show");
+                              $(".soluongcong").text(response.tongsoconlai);
+                            
+                        }
+                        else {
+                            $("#categoryModal").modal("show");
+                        }
+                    }
+                })
+
+            })
+
+        })
+        function AddSize(id,tag){
+            $(".sizes").removeClass("tick");
+            $(tag).addClass("tick");
+        }
+
+
+    </script>
+}

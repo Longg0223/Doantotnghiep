@@ -1,0 +1,191 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    input.error {
+        border-color: #f00 !important;
+    }
+
+    label.error {
+        clear: both;
+        color: #f00;
+        display: block;
+        text-align: left;
+        margin: unset;
+        padding: unset;
+        font-size: 13px;
+        font-weight: unset !important;
+        background: unset;
+    }
+    .form-group[class*='has-icon-'] .form-control-icon{
+        transform: unset !important;
+        top: 10% !important;
+    }
+    li{
+        list-style: none;
+    }
+
+    .infoList-contact li {
+        line-height: 1.7;
+    }
+</style>
+
+<section class="ftco-section ftco-degree-bg" style="    margin: 40px 0px;">
+    <div data-v-77c39cb3="" class="container">
+        <div data-v-77c39cb3="" class="row">
+            <div data-v-77c39cb3="" class="col-lg-8">
+                <div class="box-info-contact">
+                    <h2>Thông tin liên hệ</h2>
+                    <ul class="infoList-contact row">
+                        <li class="col-md-12 col-xs-12">
+                            @*<span><i class="fa fa-map-marker"></i></span>*@
+                            <p><strong>Địa chỉ</strong><br>Liên Xuân, Nam Sơn, Sóc Sơn, Hà Nội</p>
+                        </li>
+                        <li class="col-md-12 col-xs-12">
+        
+                            <p><strong>Email</strong><br>longg0223@gmail.com</p>
+                        </li>
+                        <li class="col-md-12 col-xs-12">
+
+                            <p><strong>Điện thoại</strong><br>0969 832 700</p>
+                        </li>
+                        <li class="col-md-12 col-xs-12">
+ 
+                            <p><strong>Thời gian làm việc</strong><br>Thứ 2 đến Thứ 6 từ 8h đến 22h;<br> Thứ 7 và Chủ nhật từ 8h00 đến 17h00</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="col-lg-4  text-center heading-section" style="">
+                <h2 style="font-size: 31px; margin-bottom: 30px;">Gửi thắc mắc cho chúng tôi</h2>
+                <div class="row d-flex justify-content-center">
+
+                    <form class="form form-vertical" action="#" method="#" id="contact">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="text" placeholder="Họ và tên" class="form-control" name="full_name" id="full_name"> <!---->
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <input type="text" placeholder="Số điện thoại" class="form-control " name="phone" id="phone"> <!---->
+                                </div>
+                            </div>
+                            <div class="col-md-12">
+                                <div class="form-group">
+                                    <textarea rows="3" placeholder="Ghi chú" class="form-control" name="note" id="note"></textarea>
+                                    <!---->
+                                </div>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary button-send" style="display:block;    width: 100%;
+">
+                            Gửi
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<div  id="CartsModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalTitle" class="modal fade" aria-modal="true">
+   <div  role="document" class="modal-dialog">
+      <form id="form-submit" action="#">
+         <div  class="modal-content">
+            <div  class="modal-header">
+               <h5  id="titleModal" class="modal-title white ">Bạn đã gửi liên hệ thành công</h5>
+               <button  type="button" data-dismiss="modal" aria-label="Close" class="close"><span  aria-hidden="true">×</span></button>
+            </div>
+            <div  class="modal-body">
+            </div>
+            <div  class="modal-footer">
+                @*<a href="/dang-nhap" class="btn btn-primary me-1 mb-1 btn-submit-format">OK</a>*@
+                <a href="javascript:void(0)" class="btn btn-primary me-1 mb-1 btn-submit-format" data-dismiss="modal">OK</a>
+                </div>
+         </div>
+      </form>
+   </div>
+</div>
+
+@section Scripts{
+    <script src="~/admin/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        var self = this;
+        $(document).ready(function() {
+            ValidateUser();
+        })
+
+        function ValidateUser() {
+             jQuery.validator.addMethod("headphone", function (value, element) {
+                var vnf_regex = /((032|033|034|035|036|037|038|039|056|058|059|070|076|077|078|079|081|082|083|084|085|086|087|088|089|090|091|092|093|094|096|097|098|099)+([0-9]{7})\b)/g;
+                return vnf_regex.test(value);
+            });
+            $("#contact").validate({
+                rules:
+                {
+                    full_name: {
+                        required: true,
+                    },
+                    phone: {
+                        required: true,
+                        headphone: true,
+                        minlength: 10,
+                        min: 0,
+                        maxlength: 11,
+                        number: isNaN
+                    },
+                    note: {
+                        required: true
+                    }
+                },
+                messages:
+                {
+                    full_name: {
+                        required: "Số điện thoại không được để trống",
+                        headphone: "Số điện thoại không hợp lệ"
+                    },
+                    phone: {
+                        required: "Số điện thoại không được để trống",
+                        minlength:"Số điện thoại từ 10 đến 11 kí tự",
+                        maxlength: "Số điện thoại từ 10 đến 11 kí tự",
+                        headphone:"Số điện thoại không hợp lệ",
+                        number:"Số điện thoại không hợp lệ"
+                    },
+                    note: {
+                        required: "Ghi chú không được để trống"
+                    }
+                },
+                submitHandler: function(form) {
+                    var UserModelView={
+                        full_name: $("#full_name").val(),
+                        phone_number: $("#phone").val(),
+                        note: $("#note").val()
+                    }
+                    $.ajax({
+                        type: "POST",
+                        url: "/Admin/Contract/Add",
+                        data: { UserModelView: UserModelView },
+                        beforeSend: function() {
+                            // tedu.start//Loading();
+                            Loading('show');
+                        },
+                        complete: function () {
+                             Loading('hide');
+                        },
+                        success: function(response) {
+                            if(response.success){
+                                $("#CartsModal").modal("show");                                
+                            }
+                        },
+                        error: function() {
+                            Loading('hide');
+                        }
+                    });
+                }
+            });
+        }
+    </script>
+}

@@ -1,0 +1,216 @@
+﻿@using TECH.Areas.Admin.Models
+@model UserModelView
+@{
+    ViewData["Title"] = "Hồ sơ cá nhân";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+@*<style>
+    .fisrt-image-product {
+        width: 77px;
+        height: 55px;
+        border-radius: 4px;
+    }
+</style>*@
+<style type="text/css">
+    input.error {
+        border-color: #f00 !important;
+    }
+
+    label.error {
+        clear: both;
+        color: #f00;
+        display: block;
+        text-align: left;
+        margin: unset;
+        padding: unset;
+        font-size: 13px;
+        font-weight: unset !important;
+        background: unset;
+    }
+    .form-group[class*='has-icon-'] .form-control-icon{
+        transform: unset !important;
+        top: 10% !important;
+    }
+</style>
+<div class="page-heading">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3>Hồ sơ cá nhân</h3>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Hồ sơ cá nhân</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <section id="multiple-column-form">
+        <div class="row match-height">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header" style="padding: 1.5rem 1.5rem 0 !important;">
+                        <h4 class="card-title">Thông tin cá nhân</h4>
+                    </div>
+                    <div class="card-content">
+                        <div class="card-body">
+                            <form action="#" method="#" id="formUserDetail" class="form">
+                                <input type="text" value="@Model.id" style="display:none" id="userId" />
+                                <div class="row">
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="full_name">Họ tên</label>
+                                            <input type="text" id="full_name" class="form-control" name="full_name" value="@Model.full_name">
+                                            <label id="full_name-error" class="error" for="full_name" style="display: none;">Số điện thoại đã tồn tại</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6 col-12">
+                                        <div class="form-group">
+                                            <label for="phone_number">Số điện thoại</label>
+                                            <input type="text" id="phone_number" class="form-control" name="phone_number" value="@Model.phone_number">
+                                            <label id="phone_number-error" class="error phone_number-exist" for="phone_number" style="display: none;">Số điện thoại đã tồn tại</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-12">
+                                        <div class="form-group">
+                                            <label for="email">Email</label>
+                                            <input type="email" id="email" class="form-control" name="email" value="@Model.email">
+                                            <label id="email-error" class="error email-exist" for="email" style="display: none;">Số điện thoại đã tồn tại</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-12 col-12">
+                                        <div class="form-group">
+                                            <label for="address">Địa chỉ</label>
+                                            <textarea name="address" id="address" rows="3" class="form-control" style="resize: none">@Model.address</textarea>
+                                            <span class="text-danger"></span>
+                                        </div>
+                                    </div>
+                                    <div class="col-12 d-flex justify-content-end">
+                                        <button type="submit" class="btn btn-primary me-1 mb-1">Chỉnh sửa</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+@section Scripts{
+    <script src="~/admin/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            //jQuery.validator.addMethod("checkallowedchars", function (value) {
+            //    return /[\d`!@@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test(value);
+            //}, "The field contains non-admitted characters");
+
+             jQuery.validator.addMethod("headphone", function (value, element) {
+                var vnf_regex = /((032|033|034|035|036|037|038|039|056|058|059|070|076|077|078|079|081|082|083|084|085|086|087|088|089|090|091|092|093|094|096|097|098|099)+([0-9]{7})\b)/g;
+                return vnf_regex.test(value);
+            });           
+
+            $("#formUserDetail").validate({
+                rules:
+                {
+                    full_name: {
+                        required: true,
+                        //checkallowedchars:true,
+                        minlength: 8,
+                    },
+                    phone_number: {
+                        required: true,
+                        headphone: true,
+                        minlength: 10,
+                        min: 0,
+                        maxlength: 11,
+                        number: isNaN
+                    },
+                    email: {
+                        required: true,
+                        email:true
+                    },
+                    address: {
+                        required: true
+                    },
+
+                },
+                messages:
+                {
+                    full_name: {
+                        required: "Họ tên không được để trống",
+                        minlength: "Tên tối thiểu 8 kí tự",
+                        //checkallowedchars:"Họ tên không chứa số và kí tự đặc biệt"
+                    },
+                    phone_number: {
+                        required: "Số điện thoại không được để trống",
+                        headphone: "Số điện thoại không hợp lệ",
+                        minlength:"Số điện thoại từ 10 đến 11 kí tự",
+                        maxlength: "Số điện thoại từ 10 đến 11 kí tự",
+                    },
+                    email: {
+                        required: "Email không được để trống",
+                        email:"Email không đúng định dạng"
+                    },
+                    address: {
+                        required: "Bạn chưa nhập địa chỉ"
+                    }
+                },
+                submitHandler: function(form) {
+                    var checkAlloweChars = /[\d`!@@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/.test($("#full_name").val());
+                    if(checkAlloweChars == true){
+                        $("#full_name-error").show().text("Họ tên không chứa số và kí tự đặc biệt");
+                        return;
+                    }
+
+                    var userView = {
+                        id: $("#userId").val(),
+                        address : $("#address").val(),
+                        full_name:$("#full_name").val(),
+                        email: $("#email").val(),
+                        phone_number:$("#phone_number").val(),
+                    };
+                    $.ajax({
+                        url: '/Admin/AppUsers/UpdateViewDetail',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            UserModelView: userView
+                        },
+                        beforeSend: function() {
+                            Loading('show');
+                        },
+                        complete: function() {
+                            Loading('hiden');
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                tedu.notify('Cập nhật dữ liệu thành công', 'success');                              
+                            }
+                            else {
+                                if (response.isExistPhone){
+                                    $("#phone_number-error").show().text("Số điện thoại đã tồn tại");
+                                }
+                                else if (response.isExistEmail) {
+                                    $("#email-error").show().text("Email đã tồn tại");
+                                }
+                                else{
+                                    tedu.notify('Cập nhật dữ liệu không thành công', 'error');
+                                }
+                               
+                            }
+                        }
+                    })
+                }
+            });
+        })
+    </script>
+    }
+
+
+

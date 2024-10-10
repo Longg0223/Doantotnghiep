@@ -1,0 +1,45 @@
+﻿@using TECH.Areas.Admin.Models
+@model List<ProductModelView>
+@if (Model != null && Model.Count > 0)
+{
+    <section data-v-f7970b56="" class="ftco-section bg-light">
+        <div data-v-f7970b56="" class="container">
+            <div data-v-f7970b56="" class="row justify-content-center mb-3 pb-3">
+                <div data-v-f7970b56="" class="col-md-12 heading-section text-center">
+                    <h2 data-v-f7970b56="" class="mb-4">Sản phẩm liên quan</h2>
+                </div>
+            </div>
+        </div>
+        <div data-v-f7970b56="" class="container">
+            <div data-v-f7970b56="" class="cards">
+
+                @foreach (var item in Model)
+                {
+                    string priceStr = "";
+                    @if (item.price_sell > 0)
+                                    {
+                        priceStr = item.price_sell.Value.ToString("#,###");
+                                    }
+
+                    <div data-v-f7970b56="" class="card">
+                        <div data-v-f7970b56="" class="product">
+                           @*  <a data-v-f7970b56="" href="/chi-tiet-san-pham/@item.id" class="img-prod">
+                                <img data-v-f7970b56="" src="/product-image/@item.avatar" alt="Product Image" class="img-fluid product-img">
+                                <div data-v-f7970b56="" class="overlay"></div>
+                            </a> *@
+                            <div data-v-f7970b56="" class="text py-3 px-3">
+                                <h3 data-v-f7970b56=""><a data-v-f7970b56="" href="/chi-tiet-san-pham/@item.id">@item.name</a></h3>
+                                <div data-v-f7970b56="" class="price"><span data-v-f7970b56="" class="mr-2 price-color">@priceStr<i data-v-f7970b56="">đ</i></span></div>
+                                <!---->
+                                @*<div data-v-f7970b56="" class="endow"><span data-v-f7970b56="" class="endow">30%</span></div>*@
+                            </div>
+                        </div>
+                    </div>
+                }
+
+            </div>
+        </div>
+    </section>
+}
+
+

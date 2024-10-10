@@ -1,0 +1,58 @@
+﻿@using TECH.Areas.Admin.Models
+@model List<ProductModelView>
+
+@if (Model != null && Model.Count > 0)
+{
+    <div data-v-0da8956e="">
+        <section data-v-0da8956e="" class="ftco-section">
+            <div data-v-9cef60d6="" class="container">
+                <div data-v-9cef60d6="" class="row justify-content-center mb-3 pb-3">
+                    <div data-v-9cef60d6="" class="col-md-12 heading-section text-center">
+                        <h2 data-v-9cef60d6="" class="mb-4">Tất cả sản phẩm</h2>
+                        <a data-v-9cef60d6="" href="san-pham">
+                            <h5 data-v-9cef60d6="" class="view-more">Xem thêm</h5>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div data-v-0da8956e="" class="container">
+                <div data-v-0da8956e="" class="cards">
+                    @foreach (var item in Model)
+                    {
+                        string priceStr = "";
+                        @if (item.price > 0)
+                        {
+                            priceStr = item.price.Value.ToString("#,###");
+                        }
+
+                        <div data-v-0da8956e="" class="card product border-product">
+                            <a data-v-0da8956e="" href="/chi-tiet-san-pham/@item.id" class="img-prod">
+                                <img data-v-0da8956e="" src="/product-image/@item.avatar" alt="Colorlib Template" class="img-fluid product-img"> <!---->
+                                <div data-v-0da8956e="" class="overlay"></div>
+                            </a>
+                            <div data-v-0da8956e="" class="text py-3 px-3">
+                                <h3 data-v-0da8956e=""><a data-v-0da8956e="" href="/chi-tiet-san-pham/@item.id" class="name-product">@item.name</a></h3>
+                                <div data-v-0da8956e="" class="price"><span data-v-0da8956e="" class="mr-2 price-color">@priceStr <i data-v-0da8956e="">đ</i></span></div>
+                                @if (item.ProductViews != null)
+                                {
+                                    <div data-v-7b8a01fc="" class="rate">
+                                        <span data-v-7b8a01fc="">
+                                            @item.ProductViews.star  <span data-v-7b8a01fc="" class="ion-ios-star"></span><span data-v-7b8a01fc="" class="sold">&nbsp;(@item.ProductViews.review_count)</span>
+                                        </span>
+                                    </div>
+                                    <div data-v-7b8a01fc="" class="endow"><span data-v-7b8a01fc="" class="endow"></span></div>
+                                }
+                                <!---->
+                                @*<div data-v-0da8956e="" class="endow"><span data-v-0da8956e="" class="endow">@item.specifications</span></div>*@
+                            </div>
+                        </div>
+                    }
+
+
+                </div>
+            </div>
+        </section>
+    </div>
+
+
+}

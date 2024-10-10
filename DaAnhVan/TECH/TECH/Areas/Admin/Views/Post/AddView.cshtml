@@ -1,0 +1,119 @@
+﻿@{
+    ViewData["Title"] = "Tạo mới sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .required{
+        color: #f00;
+    }
+    input.error {
+        border-color: #f00 !important;
+    }
+
+    label.error {
+        clear: both;
+        color: #f00;
+        display: block;
+        text-align: left;
+        margin: unset;
+        padding: unset;
+        font-size: 15px;
+        font-weight: unset !important;
+        background: unset;
+    }
+    .box-image{
+        height: 450px;
+        background-position: center;
+        background-repeat: unset;
+        background-size: cover;
+        border-radius: 4px;
+        margin-top: 10px;
+        display: none;
+    }
+</style>
+
+<div class="page-heading product-add-update">
+    <div class="page-title">
+        <div class="row">
+            <div class="col-12 col-md-6 order-md-1 order-last">
+                <h3 class="product-title">Tạo mới bài viết</h3>
+            </div>
+            <div class="col-12 col-md-6 order-md-2 order-first">
+                <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="/admin">Dashboard</a></li>
+                        <li aria-current="page" class="breadcrumb-item active product-title">Tạo mới bài viết</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <section id="basic-vertical-layouts">
+        <div class="row match-height">
+            <div>
+                <!---->
+                <div class="snotify snotify-left_top"></div>
+                <div class="snotify snotify-left_center"></div>
+                <div class="snotify snotify-left_bottom"></div>
+                <div class="snotify snotify-right_top"></div>
+                <div class="snotify snotify-right_center"></div>
+                <div class="snotify snotify-right_bottom"></div>
+                <div class="snotify snotify-center_top"></div>
+                <div class="snotify snotify-center_center"></div>
+                <div class="snotify snotify-center_bottom"></div>
+            </div>
+            <div class="col-md-12 col-12">
+                <div class="card">
+                    <div class="card-content">
+                        <div class="card-body">
+                            <form class="form form-vertical" id="form-submit" action="#">
+                                <div class="form-body">
+                                    <div class="row">
+                                        <div class="col-12 mb-2">
+                                            <div class="">
+                                                <label for="first-name-vertical">Tiêu đề bài viết <span class="required">(*)</span></label>
+                                                <input type="text" id="productname" name="productname" placeholder="Tiêu đề bài viết" class=" form-control"> <!---->
+                                                <label id="phone_number-error" class="error productname-exist" for="productname" style="display: none;">Tên bài viết đã tồn tại</label>
+                                            </div>
+                                        </div>
+                                      
+                                        <div class="col-12 mb-2">
+                                            <div class="form-group">
+                                                <label for="email-id-vertical">Hình ảnh <span class="required">(*)</span></label>
+                                                <input type="file" id="productavatar" name="productavatar" class="form-control"> <!----> <!---->
+                                                <div class="box-image">
+                                                </div>
+                                            </div>
+                                        </div>                                                                                                                  
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="contact-info-vertical">Mô tả ngắn <span class="required">(*)</span></label>
+                                                <textarea name="productshort_desc" id="productshort_desc" rows="3" placeholder="..." class="form-control"></textarea>
+                                                <!---->
+                                            </div>
+                                        </div>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <label for="contact-info-vertical">Mô tả <span class="required">(*)</span></label>
+                                                <div class="ckeditor">
+                                                    <textarea name="productdescription" id="productdescription" rows="6" placeholder="Mô tả chi tiết sản phẩm"></textarea>
+                                                </div>
+                                                <!---->
+                                            </div>
+                                        </div>
+                                        <div class="col-12 d-flex justify-content-end"><button type="submit" class="btn btn-primary me-1 mb-1">Tạo mới</button></div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+@section Scripts{
+    <script src="~/admin/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="~/admin/plugins/ckeditor/ckeditor.js"></script>
+    <script src="~/admin/post/post.js?v=@DateTime.Now.Ticks"></script>
+    }

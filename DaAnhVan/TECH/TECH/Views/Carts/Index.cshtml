@@ -1,0 +1,219 @@
+﻿@using TECH.Areas.Admin.Models
+@model List<CartsModelView>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .custom-td{
+        vertical-align: middle !important;
+    }
+</style>
+@if (Model != null && Model.Count > 0)
+{
+    <section class="ftco-section ftco-cart custom-height" style="margin-top: 40px">
+        <div  class="container">
+            <div  class="row">
+                <h2  class="mb-3">Giỏ hàng</h2>
+                <div  class="col-md-12">
+                    <div  class="cart-list my-cart">
+                        <div  class="table-responsive">
+                            <table  class="table table-striped">
+                                <thead >
+                                    <tr >
+                                            <th style="width:15%">Hình ảnh</th>
+                                            <th style="width:40%">Tên sản phẩm</th>
+                                            <th style="width:15%">Giá tiền</th>
+                                                <th style="width:15%">Số lượng</th>
+                                            <th style="width:10%">Tổng</th>
+                                            <th style="width:5%"></th>
+                                    </tr>
+                                </thead>
+                                <tbody >
+                                    @foreach (var item in Model)
+                                    {
+                                        decimal totalPrice = item.price.Value;
+                                        string classQuantiy = item.product_id.Value.ToString();
+
+                                        <tr >
+                                            <td class="image-prod custom-td">
+                                                <div class="img" style="width: 150px;height: 100px;"><img src="/product-image/@item.productModelView.ImageModelView[0].name" style="width: 100%; height: 100%;" class="img-product"></div>
+                                            </td>
+                                            <td  class="product-name text-left custom-td">
+                                                <h3 style="font-size: 15px;color: #333;margin-bottom: 0px;">@item.productModelView.name</h3>
+                                            </td>
+                                            <td class="price custom-td">@Convert.ToDecimal(item.productModelView.price_sell).ToString("#,###")<i> đ</i></td>
+                                            <td class="custom-td">
+                                                <div class="input-group input-quantity" style="display: inline-flex;">
+                                                    <div  class="left-quantity"></div>
+                                                    <div  class="input-group-prepend"><button  type="button" class="btn btn-primary minus" onclick="minusQuantity(@classQuantiy,@item.id)">-</button></div>
+                                                    <input  type="number" id="quantity" style="width: 27px;" min="1" oninput="this.value = !!this.value && Math.abs(this.value) >= 1 ? Math.abs(this.value) : 1" value="@item.quantity"  aria-label="Recipient's username" aria-describedby="basic-addon2" class="form-control @classQuantiy">
+                                                    <div  class="input-group-append"><button  type="button" class="btn btn-primary plus" onclick="addQuantity(@classQuantiy,@item.id)">+</button></div>
+                                                    <div  class="right-quantity"></div>
+                                                </div>
+                                            </td>
+                                            <td class="custom-td"><span class="@classQuantiy">@item.price.Value.ToString("#,###")</span><i > đ</i></td>
+                                            <td class="custom-td"><button class="btn btn-danger text-white" style="background: red;" onclick="deleteCart(@item.id)"><i class="fa fa-trash text-white"></i></button></td>
+                                        </tr>
+                                    }
+
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <a href="thanh-toan" class="btn btn-primary py-3 px-4 float-right mr-3 btn-checkout" style="background: green;color: #fff;">
+                        Thanh toán
+                    </a> <a href="/" class="btn btn-secondary py-3 px-4 float-right mr-3 btn-buy" style="color: #fff;margin-right: 10px;">Tiếp tục mua hàng</a>
+                </div>
+            </div>
+        </div>
+    </section>
+}
+else
+{
+    <section class="ftco-section ftco-cart custom-height" style="margin-top: 40px">
+   <div  class="container">
+      <div  class="row">
+         <h2  class="mb-3">Giỏ hàng</h2>
+         <div  class="col-md-12">
+            <div  class="cart-list my-cart">
+               <div  class="table-responsive">
+                  <table  class="table table-striped">
+                     <thead >
+                        <tr >
+                               <th>Hình ảnh</th>
+                           <th>Tên sản phẩm</th>
+                               <th>Giá tiền</th>
+                               <th>Số lượng</th>
+                               <th>Tổng</th>
+                           <th ></th>
+                        </tr>
+                     </thead>
+                     <tbody ></tbody>
+                  </table>
+               </div>
+            </div>
+            <a  href="thanh-toan" class="btn btn-primary py-3 px-4 float-right mr-3 btn-checkout" style="display: none;">
+            Thanh toán
+            </a> <a  href="/" class="btn btn-secondary py-3 px-4 float-right mr-3 btn-buy" style="color:#fff">Tiếp tục mua hàng</a>
+         </div>
+      </div>
+   </div>
+</section>
+}
+
+<div  id="CartsModal" tabindex="-1" role="dialog" aria-labelledby="categoryModalTitle" class="modal fade" aria-modal="true">
+   <div  role="document" class="modal-dialog">
+      <form id="form-submit" action="#">
+         <div  class="modal-content">
+            <div  class="modal-header">
+                    <h5 id="titleModal" class="modal-title white " style="">Xóa sản phẩm khỏi giỏ hàng thành công</h5>
+               <button  type="button" data-dismiss="modal" aria-label="Close" class="close"><span  aria-hidden="true">×</span></button>
+            </div>
+                <div class="modal-footer" style="    border-top: unset;">
+                @*<a href="/dang-nhap" class="btn btn-primary me-1 mb-1 btn-submit-format">OK</a>*@
+                <a href="/home" class="btn btn-primary me-1 mb-1 btn-submit-format" style="color:#fff">OK</a>
+                </div>
+         </div>
+      </form>
+   </div>
+</div>
+
+@section Scripts{
+        <script type="text/javascript">
+    
+    function addQuantity(className,id){
+        var value = parseInt($("."+className).val());
+        if (value < 9999) {
+             value = value + 1;
+                $("." + className).val(value);
+                $.ajax({
+                    url: '/Carts/Update',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        product_id: parseInt(className),
+                        quantity: $("." + className).val(),
+                        id: id
+                    },
+                    beforeSend: function () {
+                        // Loading('show');
+                    },
+                    complete: function () {
+                        // Loading('hiden');
+                    },
+                    success: function (response) {
+                        if (response.success && response.Data) {
+                            $("." + className).text(response.Data.pricestr);
+                        }
+                        //else{
+                        //    $("#categoryModal").modal("show");
+                        //}
+                    }
+                })
+        }
+       
+
+    }
+
+     function minusQuantity(className,id){
+        var value = parseInt($("."+className).val());
+        if (value < 9999 && value >=2) {
+            $("."+className).val(value - 1);
+        }
+        $.ajax({
+            url: '/Carts/Update',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                product_id: parseInt(className),
+                quantity: $("."+className).val(),
+                id:id
+            },
+            beforeSend: function () {
+                // Loading('show');
+            },
+            complete: function () {
+                // Loading('hiden');
+            },
+            success: function (response) {
+                if (response.success && response.Data) {
+                    $("." + className).text(response.Data.pricestr);
+                }
+                //if (response.success) {
+                //    $("#CartsModal").modal("show");
+                //}
+                //else{
+                //        $("#categoryModal").modal("show");
+                //}
+            }
+        })
+
+    }
+    function deleteCart(id){
+        $.ajax({
+            url: '/Carts/Deleted',
+            type: 'POST',
+            dataType: 'json',
+            data: {
+                id: id
+            },
+            beforeSend: function () {
+                // Loading('show');
+            },
+            complete: function () {
+                // Loading('hiden');
+            },
+            success: function (response) {
+                if (response.success) {
+                    $("#CartsModal").modal("show");
+                }                
+            }
+        })
+
+    }
+    
+
+
+</script>
+}

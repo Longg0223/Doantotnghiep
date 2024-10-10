@@ -1,0 +1,290 @@
+﻿@using Microsoft.AspNetCore.Http
+@using Newtonsoft.Json
+@using TECH.Areas.Admin.Models
+@{
+    var userString = Context.Session.GetString("UserInfor");
+    var user = new UserModelView();
+    int isLogin = 0;
+    if (userString != null)
+    {
+        user = JsonConvert.DeserializeObject<UserModelView>(userString);
+        if (user.role == 0)
+        {
+            isLogin = 1;
+        }
+
+    }
+}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Dashboard">
+    <meta name="author" content="TranTienDat">
+
+    <title>Dashboard</title>
+
+    <link rel="icon" href="/public/images/logo.jpg">
+    <link rel="canonical" href="/admin">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/public/admin/css/bootstrap.css">
+
+    <link rel="stylesheet" href="/public/admin/vendors/iconly/bold.css">
+    <link rel="stylesheet" href="/public/admin/vendors/perfect-scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet" href="/public/admin/vendors/bootstrap-icons/bootstrap-icons.css">
+    <link rel="stylesheet" href="/public/admin/css/app.css">
+    <link href="~/public/customer/bootstrap-sweetalert-master/dist/sweetalert.css" rel="stylesheet" />
+    <meta name="admin-id" content="2">
+    <style>
+        .bootbox .bootbox-close-button.close {
+            float: right;
+            border: unset;
+            background: #fff;
+        }
+
+        .custom-button {
+            margin-right: 5px;
+            display: inline-flex;
+            align-items: center;
+            padding: 10px;
+        }
+
+            .custom-button .custom-icon {
+                display: inline-flex;
+            }
+
+        .icon-custom {
+            background: url(/image-common/sport-shoe.svg);
+            height: 20px;
+            width: 26px;
+            color: #fff !important;
+            background-position: center !important;
+            background-size: cover !important;
+            background-repeat: unset !important;
+            margin-left: -8px !important;
+        }
+
+        .sidebar-wrapper {
+            background: #161d31;
+        }
+
+            .sidebar-wrapper .menu .sidebar-link {
+                color: #fff;
+                border-radius:unset !important
+            }
+
+                .sidebar-wrapper .menu .sidebar-link:hover {
+                    color: #161d31;
+                }
+
+                .sidebar-wrapper .menu .sidebar-link:hover i {
+                    color: #161d31;
+                }
+
+                .sidebar-wrapper .menu .sidebar-link i {
+                    color: #fff;
+                }
+
+            .sidebar-wrapper .menu .sidebar-title {
+                color: #fff;
+            }
+
+            .sidebar-wrapper .menu .submenu .submenu-item a {
+                color: #fff;
+            }
+
+            .sidebar-wrapper .menu{
+                padding:0px;
+            }
+
+        .dropdown-header {
+            text-align: center;
+        }
+    </style>
+    @RenderSection("Styles", required: false)
+</head>
+
+<body>
+    <div id="app">
+        <div id="sidebar" class="active">
+            <div class="sidebar-wrapper active">
+               
+
+                <div class="sidebar-menu">
+                    <ul class="menu">
+                        <li class="sidebar-title">Trang chủ</li>
+                        <li class="sidebar-item sidebar-item-admin">
+                            <a href="/admin" class='sidebar-link'>
+                                <i class="bi bi-grid-fill"></i>
+                                <span>Dashboard</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-title">Quản lý</li>
+                        <li class="sidebar-item quan-ly-tai-khoan">
+                            <a href="/admin/quan-ly-tai-khoan" class='sidebar-link'>
+                                <i class="bi bi-person-circle"></i>
+                                <span>Tài khoản</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item quan-ly-don-hang">
+                            <a href="/admin/quan-ly-don-hang" class='sidebar-link'>
+                                <i class="bi bi-cart"></i>
+                                <span>Đơn hàng</span>
+                            </a>
+                        </li>
+                        <li class="sidebar-item quan-ly-danh-muc">
+                            <a href="/admin/quan-ly-danh-muc" class='sidebar-link'>
+                                <i class="bi bi-menu-button-wide"></i>
+                                <span>Danh mục</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item has-sub quan-ly-san-pham">
+                            <a href="javascript:void(0)" class='sidebar-link'>
+                                <i class="bi bi-book"></i>
+                                <span style="    margin-left: 12px;">Sản phẩm</span>
+                            </a>
+                            <ul class="submenu">
+                                <li class="submenu-item tao-moi-san-pham">
+                                    <a href="/admin/tao-moi-san-pham">Tạo mới</a>
+                                </li>
+                                <li class="submenu-item quan-ly-san-pham">
+                                    <a href="/admin/quan-ly-san-pham">Danh sách</a>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="sidebar-item has-sub  quan-ly-bai-viet">
+                            <a href="javascript:void(0)" class='sidebar-link'>
+                                <i class="bi bi-newspaper"></i>
+                                <span>Bài viết</span>
+                            </a>
+                            <ul class="submenu  ">
+                                <li class="submenu-item tao-moi-bai-viet">
+                                    <a href="/admin/tao-moi-bai-viet">Tạo mới</a>
+                                </li>
+                                <li class="submenu-item ">
+                                    <a href="/admin/quan-ly-bai-viet">Danh sách</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sidebar-item quan-ly-lien-he-tu-van">
+                            <a href="/admin/quan-ly-lien-he-tu-van" class='sidebar-link'>
+                                <i class="bi bi-menu-button-wide"></i>
+                                <span>Liên hệ</span>
+                            </a>
+                        </li>
+
+                     
+                    </ul>
+                </div>
+                <button class="sidebar-toggler btn x"><i data-feather="x"></i></button>
+            </div>
+        </div>
+        <div id="main" style="position: relative;padding-top: 70px;padding:0px">
+
+            <nav class="navbar navbar-expand-lg navbar-dark fixed-top nav-g" id="mainNav" style="        position: sticky;;
+    height: 50px;background-color: #006064;">
+                @*<a class="navbar-brand" href="/Admin">Admin Manager</a>*@
+                <div class="collapse navbar-collapse" id="navbarResponsive" style="justify-content: right;">
+                    <ul class="navbar-nav ml-auto">
+
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                @user?.full_name
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="messagesDropdown" style="left: -95px; min-width: 200px;">
+                                @*  <h6 class="dropdown-header">
+                                <i class="fab fa-hubspot"></i> Quản trị viên
+                                </h6>*@
+                                @*<div class="dropdown-divider"></div>*@
+                                <h6 class="dropdown-header">
+                                    <a href="/admin/thong-tin-ca-nhan"><i class="fa fa-user"></i> Thông tin cá nhân</a>
+                                </h6>
+                                <div class="dropdown-divider"></div>
+                                <h6 class="dropdown-header">
+                                    <a href="/admin/doi-mat-khau"><i class="fa fa-user"></i> Đổi mật khẩu</a>
+                                </h6>
+                                <div class="dropdown-divider"></div>
+                                <h6 class="dropdown-header">
+
+                                    <a href="/dang-xuat"><i class="fa fa-fw fa-sign-out"></i>Đăng xuất</a>
+                                </h6>
+
+                            </div>
+                        </li>
+
+                    </ul>
+                </div>
+            </nav>
+
+            <div class="content-box-custom" style="padding: 2rem;">
+                  @RenderBody()
+            </div>
+
+          
+
+
+        </div>
+    </div>
+    <script src="/public/admin/js/jquery-3.4.1.js"></script>
+    <script src="~/admin/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="/public/admin/vendors/perfect-scrollbar/perfect-scrollbar.min.js"></script>
+    @*<script src="/public/admin/js/bootstrap.min.js"></script>*@
+    <script src="/public/customer/js/bootstrap.min.js"></script>
+    <script src="/public/admin/vendors/apexcharts/apexcharts.js"></script>
+    <script src="~/lib/bootbox/bootbox.all.js"></script>
+    <script src="/admin/plugins/notify.min.js"></script>
+    <script src="/public/admin/js/main.js"></script>
+    <script src="~/share/tedu.js"></script>
+    <script src="~/js/shared/shared.js"></script>
+
+    <script src="~/admin/plugins/jquery.twbsPagination.min.js"></script>
+    <script src="~/public/customer/bootstrap-sweetalert-master/dist/sweetalert.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if (@isLogin == 0) {
+                window.location.replace("/dang-nhap");
+            }
+            var urlWindow = window.location.pathname;
+            if (urlWindow.indexOf("admin") != -1) {
+                var split = urlWindow.split('admin');
+                if (split != null && split.length > 0) {
+                    var nameCate = split[split.length - 1].replace("/", "");
+                    if (nameCate != "") {
+                        if (nameCate == "tao-moi-san-pham") {
+                            $(".quan-ly-san-pham").addClass("active");
+                            $(".tao-moi-san-pham").addClass("active");
+                        }
+                        else if (nameCate == "tao-moi-bai-viet") {
+                            $(".quan-ly-bai-viet").addClass("active");
+                            $(".tao-moi-bai-viet").addClass("active");
+                        }
+                        else {
+                            $("." + nameCate).addClass("active");
+                        }
+
+                    }
+                    else {
+                        $(".sidebar-item-admin").addClass("active");
+                    }
+
+                }
+                else {
+                    $(".sidebar-item-admin").addClass("active");
+                }
+
+            }
+        })
+    </script>
+    @RenderSection("Scripts", required: false)
+</body>
+
+</html>

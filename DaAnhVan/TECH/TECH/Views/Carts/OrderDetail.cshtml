@@ -1,0 +1,54 @@
+﻿<div  id="DetailModal" tabindex="-1" aria-labelledby="DetailModalTitle" class="modal fade bd-example-modal-lg" aria-modal="true" role="dialog">
+   <div  class="modal-dialog modal-lg">
+      <div  class="modal-content">
+         <div  class="modal-header bg-custom">
+            <h5  id="DetailModalTitle" class="modal-title txt-title">Chi tiết đơn đặt hàng <span class="madonhang"></span></h5>
+            <button  type="button" data-dismiss="modal" aria-label="Close" class="close"><span  aria-hidden="true">×</span></button>
+         </div>
+         <div  class="modal-body">
+            <table  class="table table-styling">
+               <thead  class="bg-black">
+                  <tr >
+                     <th >Tên sản phẩm</th>
+                     <th >Số lượng</th>
+                     <th >Giá tiền</th>
+                  </tr>
+               </thead>
+               <tbody  id="dataProduct">
+                 @* <tr >
+                     <td >
+                        <div >AirPods 3</div>
+                     </td>
+                     <td >3</td>
+                     <td >2,000,000<i >đ</i></td>
+                  </tr>*@
+               </tbody>
+               <tfoot >
+                  <tr  class="table-footer">
+                     <td  colspan="2" class="txt-right">Tổng tiền:</td>
+                     <td  class="total-price"><i >đ</i></td>
+                  </tr>
+                  <tr  class="table-footer hist-fee-ship" style="display: none;">
+                     <td  colspan="2" class="txt-right">Phí vận chuyển:</td>
+                     <td >
+                         <span  style="display: none;"><i >đ</i></span>
+                         <span  class="price-fee-ship">0<i >đ</i></span> 
+                         <span  style="display: none;">Nơi này chưa có phí cụ thể</span></td>
+                  </tr>
+                  <tr  class="table-footer">
+                     <td  colspan="2" class="txt-right">Hình thức thanh toán:</td>
+                     <td >
+                        <div  class="payment">Mua trực tiếp</div>
+                     </td>
+                  </tr>
+                  <tr  class="table-footer">
+                     <td  colspan="2" class="txt-right">Thành tiền:</td>
+                     <td  class="into-money"><i >đ</i></td>
+                  </tr>
+               </tfoot>
+            </table>
+         </div>
+         <div  class="modal-footer"><button  type="button" data-dismiss="modal" class="btn btn-secondary btn-3d">Đóng</button></div>
+      </div>
+   </div>
+</div>

@@ -1,0 +1,100 @@
+﻿@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+ <style type="text/css">
+    input.error {
+        border-color: #f00 !important;
+    }
+
+    label.error {
+        clear: both;
+        color: #f00;
+        display: block;
+        text-align: left;
+        margin: unset;
+        padding: unset;
+        font-size: 13px;
+        font-weight: unset !important;
+        background: unset;
+    }
+    .form-group[class*='has-icon-'] .form-control-icon{
+        transform: unset !important;
+        top: 10% !important;
+    }
+    .col-md-12{
+        margin-bottom: 20px;
+    }
+</style>
+<section id="lien-he-voi-chung-toi" class="ftco-section custom-height">
+   <div class="parallax-img d-flex align-items-center">
+      <div class="container">
+         <div class="row d-flex justify-content-center">
+            <div class="col-md-7  heading-section  fadeInUp d">
+                    <h2 class="text-center" style="    font-size: 30px;
+    font-weight: bold;
+    text-transform: uppercase;">
+                        Đăng ký
+                    </h2>
+               <div class="row d-flex justify-content-center mt-5">
+                  <div class="col-md-8">
+                     <form action="#" id="form-submit">
+                        <div class="results"></div>
+                        <div class="row">
+                           <div class="col-md-12">
+                              <div class="form-group">
+                                  <input type="text" name="full_name" id="full_name" placeholder="Họ và tên" value="" class="form-control" style="border-radius: 5px;">
+                                  </div>
+                           </div>
+                           <div class="col-md-12">
+                              <div class="form-group">
+                                  <input type="text" name="phone_number" id="phone_number" placeholder="Số điện thoại" value="" class="form-control" style="border-radius: 5px;"> 
+                                  <label id="phone_number-error" class="error phone_number-exist" for="phone_number" style="display: none;">Số điện thoại đã tồn tại</label>
+                              </div>
+                           </div>
+                           <div class="col-md-12">
+                              <div class="form-group">
+                                  <input type="email" name="email" id="email" placeholder="Email" value="" class="form-control" style="border-radius: 5px;"> 
+                                   <label id="email-error " class="error email-exist" style="display: none;" for="email">Email đã tồn tại</label>
+                                  </div>
+                           </div>
+                           <div class="col-md-12">
+                              <div class="form-group">
+                                  <input type="password" name="password" id="password" placeholder="Mật khẩu" class="form-control" style="border-radius: 5px;">
+                              </div>
+                           </div>
+                           <div class="col-md-12">
+                              <div class="form-group">
+                                  <input type="password" name="confirm_password" autocomplete="off" placeholder="Nhập lại mật khẩu" class="form-control" style="border-radius: 5px;"> 
+                                  </div>
+                           </div>
+                        </div>
+                                <button type="submit" class="btn btn-primary btn-block" style="border-radius: 5px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    background-color: #f2f2f2;
+    border-color: #f2f2f2;
+    color: unset;
+    text-transform: uppercase;
+    font-size: 21px;">
+                                    Đăng
+                        ký</button>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+
+@section Scripts{
+        @*<script src="/public/admin/js/jquery-3.4.1.js"></script>*@
+       @* <script src="/public/admin/js/bootstrap.min.js"></script>*@
+        <script src="~/admin/plugins/jquery-validation/jquery.validate.min.js"></script>
+        <script src="~/web/appusers/appusers.js?v=@DateTime.Now.Ticks"></script>
+    }
+
+

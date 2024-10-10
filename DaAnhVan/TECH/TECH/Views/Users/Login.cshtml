@@ -1,0 +1,71 @@
+﻿
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    input.error {
+        border-color: #f00 !important;
+    }
+
+    label.error {
+        clear: both;
+        color: #f00;
+        display: block;
+        text-align: left;
+        margin: unset;
+        padding: unset;
+        font-size: 13px;
+        font-weight: unset !important;
+        background: unset;
+            margin-top: 10px;
+    }
+    .form-group[class*='has-icon-'] .form-control-icon{
+        transform: unset !important;
+        top: 10% !important;
+    }
+</style>
+<section id="lien-he-voi-chung-toi" class="ftco-section custom-height">
+   <div class="parallax-img d-flex align-items-center">
+      <div class="container">
+         <div class="row d-flex justify-content-center">
+            <div class="col-md-7 heading-section  fadeInUp d">
+               <h2 class="text-center">Đăng nhập</h2>
+               <div class="row d-flex justify-content-center mt-5">
+                  <div class="col-md-8">
+                     <form action="#" method="#" id="form-login">
+                        <div class="results" style="display:none">
+                            <div class="alert alert-danger text-error-custom">
+                                        Tên đăng nhập hoặc mật khẩu không đúng
+                                    </div>
+                             </div>
+                        <div class="row">
+                                    <div class="col-md-12" style="margin-bottom: 20px;">
+                              <div class="form-group">
+                                  <input type="text" name="email_phone" id="email_phone" placeholder="Email/ Số điện thoại" class="form-control" style="border-radius: 5px;"> 
+                              </div>
+                           </div>
+                           <div class="col-md-12">
+                              <div class="form-group">
+                                  <input type="password" name="password" id="password" placeholder="Mật khẩu" class="form-control" style="border-radius: 5px;">
+                              </div>
+                           </div>
+                        </div>
+                                <div class="text-center " style="margin-top: 20px;">
+                               
+                                    <button type="submit" class="btn btn-success btn-block" style="border-radius: 5px;    background-color: #28a745;">Đăng nhập</button>
+                        </div>
+                        
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+@section Scripts{
+        <script src="~/admin/plugins/jquery-validation/jquery.validate.min.js"></script>
+        <script src="~/web/appusers/appusers.js?v=@DateTime.Now.Ticks"></script>
+    }
+

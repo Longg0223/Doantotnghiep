@@ -1,0 +1,16 @@
+﻿
+@using TECH.Areas.Admin.Models
+@model List<CategoryModelView>
+@if (Model != null && Model.Count > 0)
+{
+    @foreach (var item in Model)
+    {
+        <li id="menu-item-92" class="menu-item menu-item-type-taxonomy menu-item-object-product_cat menu-item-92 menu-item-design-default">
+            <a href="/san-pham?categoryId=@item.id" class="nav-top-link">@item.name</a>
+        </li>
+    }
+
+}
+
+
+

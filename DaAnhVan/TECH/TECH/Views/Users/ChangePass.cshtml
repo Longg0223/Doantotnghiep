@@ -1,0 +1,150 @@
+﻿@using TECH.Areas.Admin.Models
+@model UserModelView
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style type="text/css">
+    input.error {
+        border-color: #f00 !important;
+    }
+
+    label.error {
+        clear: both;
+        color: #f00;
+        display: block;
+        text-align: left;
+        margin: unset;
+        padding: unset;
+        font-size: 13px;
+        font-weight: unset !important;
+        background: unset;
+    }
+    .form-group[class*='has-icon-'] .form-control-icon{
+        transform: unset !important;
+        top: 10% !important;
+    }
+</style>
+<section id="lien-he-voi-chung-toi" class="ftco-section custom-height">
+   <div class="parallax-img d-flex align-items-center">
+      <div class="container">
+         <div class="row d-flex justify-content-center py-5">
+            <div class="col-md-7 heading-section  fadeInUp d">
+               <h2 class="text-center">Đổi mật khẩu</h2>
+               <div class="row d-flex justify-content-center mt-5">
+                   <input type="hidden" name="_token" value="@Model.id" id="userId">       
+                  <div class="col-md-8">
+                     <form action="#" method="#" class="form" id="formUserDetail">
+                      
+                        <div class="results" style="display:none"><div class="alert alert-danger">
+                                        Cập nhập mẩu khẩu không thành công
+                                    </div></div>
+                        <div class="row">
+                           <div class="col-md-12">
+                              <div class="form-group"><label for="re-pass">
+                                 Mật khẩu hiện tại
+                                 </label> <input type="password" name="current_password" id="current_password" placeholder="********" class="form-control">
+                              </div>
+                           </div>
+                           <div class="col-md-12">
+                              <div class="form-group"><label for="re-pass">
+                                 Mật khẩu mới
+                                 </label>
+                                 <input type="password" name="new_password" id="new_password" placeholder="********" class="form-control">
+                                            <label id="new_password-error" class="error" for="new_password" style="display: none;"></label>
+                              </div>
+                           </div>
+                           <div class="col-md-12">
+                              <div class="form-group"><label for="re-pass">
+                                 Nhập lại mật khẩu
+                                 </label> <input type="password" name="repeat_password" placeholder="********" class="form-control">
+                              </div>
+                           </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block" style="background-color: rgb(0, 0, 0); border-radius: 5px; border-color: rgb(0, 0, 0);"> Thay đổi</button>
+                     </form>
+                  </div>
+               </div>
+            </div>
+         </div>
+      </div>
+   </div>
+</section>
+@section Scripts{
+    <script src="~/admin/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $("#formUserDetail").validate({
+                rules:
+                {
+                    current_password: {
+                        required: true,
+                        minlength:8
+                    },
+                    new_password: {
+                        required: true,
+                        minlength: 8
+                    },
+                    repeat_password:{
+                        equalTo: "#new_password"
+                    }
+
+                },
+                messages:
+                {
+                    current_password: {
+                        required: "Bạn chưa nhập mật khẩu hiện tại",
+                        minlength: "Mật khẩu ít nhất 8 kí tự"
+                    },
+                    new_password: {
+                        required: "bạn chưa nhập mật khẩu mới",
+                        minlength: "Mật khẩu ít nhất 8 kí tự"
+                    },
+                    repeat_password: {
+                        equalTo: "Mật khẩu không đúng.",
+                    }
+                },
+                submitHandler: function(form) {
+
+                    var userView = {
+                        id: $("#userId").val(),
+                        current_password : $("#current_password").val(),
+                        new_password:$("#new_password").val(),
+                    };
+
+                    if (userView.current_password == userView.new_password) {
+                        $("#new_password-error").show().text("Mật khẩu mới không được trùng với mật khẩu cũ");
+                        return;
+                    }
+
+                    $.ajax({
+                        url: '/Admin/AppUsers/ChangeServerPassWord',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            userId: $("#userId").val(),
+                            current_password: $("#current_password").val(),
+                            new_password: $("#new_password").val()
+
+                        },
+                        beforeSend: function() {
+                            //Loading('show');
+                        },
+                        complete: function() {
+                            //Loading('hiden');
+                        },
+                        success: function(response) {
+                            if (response.success) {
+                                window.location.href = "/home";
+                              
+                            }
+                            else {
+                                $(".results").show();
+                            }
+                        }
+                    })
+                }
+            });
+        })
+    </script>
+    }

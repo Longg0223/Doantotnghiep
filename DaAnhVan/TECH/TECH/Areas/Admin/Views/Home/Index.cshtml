@@ -1,0 +1,211 @@
+﻿@using TECH.Areas.Admin.Models
+@model HomeModelView
+@{
+    ViewData["Title"] = "Home Page";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .apexcharts-legend.apexcharts-align-center.position-bottom{
+        display:none;
+    }
+</style>
+<div class="page-heading">
+    <h3>Trang thống kê</h3>
+</div>
+<div class="page-content">
+    <section>
+        <div class="row">
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body px-3 py-4-5">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="stats-icon purple"><i class="iconly-boldPaper"></i></div>
+                            </div>
+                            <div class="col-md-8">
+                                <h6 class="text-muted font-semibold">Tổng bài viết</h6>
+                                <h6 class="font-extrabold mb-0">@Model.PostCount</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body px-3 py-4-5">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="stats-icon blue"><i class="iconly-boldProfile"></i></div>
+                            </div>
+                            <div class="col-md-8">
+                                <h6 class="text-muted font-semibold">Tài khoản</h6>
+                                <h6 class="font-extrabold mb-0">@Model.AppUserCount</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body px-3 py-4-5">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="stats-icon green"><i class="iconly-boldInfo-Circle"></i></div>
+                            </div>
+                            <div class="col-md-8">
+                                <h6 class="text-muted font-semibold">Tổng sản phẩm</h6>
+                                <h6 class="font-extrabold mb-0">@Model.ProductCount</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="card">
+                    <div class="card-body px-3 py-4-5">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="stats-icon red"><i class="iconly-boldBookmark"></i></div>
+                            </div>
+                            <div class="col-md-8">
+                                <h6 class="text-muted font-semibold">Tổng danh mục</h6>
+                                <h6 class="font-extrabold mb-0">@Model.CategoryCount</h6>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h4>Thống kê số lượng đơn hàng</h4>
+                            </div>
+                            @*<div class="col-md-4">
+                                <button class="btn btn-primary btn-right"><i class="bi bi-arrow-repeat"></i></button> <button title="Tải xuống tệp Excel" class="btn btn-dark btn-right"><i class="bi bi-box-arrow-in-down"></i></button>
+                                <div class="form-group">
+                                    <select name="" id="" class="select-right form-select">
+                                        <option value="" disabled="disabled" selected="selected">Lọc theo thời gian</option>
+                                        <option value="1">Lọc theo ngày</option>
+                                        <option value="2">Lọc theo tháng</option>
+                                        <option value="3">Lọc theo năm</option>
+                                    </select>
+                                </div>
+
+                            </div>*@
+                        </div>
+                    </div>
+
+                    <div class="card-body">
+                        <div id="chart"></div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+@section Scripts{
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            $.ajax({
+                url: '/Admin/Home/GetOrderStatistical',
+                type: 'GET',
+                dataType: 'json',
+                beforeSend: function() {
+                    //Loading('show');
+                },
+                complete: function() {
+                    //Loading('hiden');
+                },
+                success: function(response) {
+                    var colomun = [];
+                    var colomunName = [];
+                    var TotalAccomplished = [];
+                    var TotalWaitingProgressing = [];
+                    var Totalcancel = [];
+                    $.each(response.Data, function(key, item) {
+                        colomunName.push(key);
+                        var _data = {
+                            name: key,
+                            data: [item.TotalAccomplished, item.TotalWaitingProgressing, item.Totalcancel]
+                        }
+                        TotalAccomplished.push(item.TotalAccomplished);
+                        TotalWaitingProgressing.push(item.TotalWaitingProgressing);
+                        Totalcancel.push(item.Totalcancel);
+                       
+                    })
+                    colomun.push({
+                        name:"Chờ xử lý:",
+                        data:TotalWaitingProgressing,
+                        color:'#999999'
+                    });
+
+                    colomun.push({
+                        name:"Đã hoàn thành:",
+                        data:TotalAccomplished,
+                        color: '#6AA84F'
+                    });
+
+                    colomun.push({
+                        name:"Bị hủy:",
+                        data:Totalcancel,
+                        color: '#990000'
+                    });
+
+                    setTimeout(function() {
+                        var options = {
+                            chart: {
+                                type: 'bar',
+                                horizontal: false,
+                                height: 350,  
+                                 columnWidth: "10%"
+                            },
+                            fill: {
+                                colors: ['#999999', '#6AA84F', '#990000']
+                            },
+                            dataLabels: {
+                              enabled: false
+                            },
+                            stroke: {
+                                show: true,
+                                colors: ['transparent'],
+                                width: 2,
+                            },
+                            series:colomun,
+                            tooltip: {
+                                enabled: true,
+                                shared: true,
+                            },
+                            xaxis: {
+                                categories: colomunName,
+                                //axisBorder: {
+                                //    show: true,
+                                //},
+                            }
+                        }
+
+                        var chart = new ApexCharts(document.querySelector('#chart'), options)
+                        chart.render()
+                    }, 1000);
+
+                }
+            })
+
+
+
+
+
+
+
+
+        })
+    </script>
+    }
+
+

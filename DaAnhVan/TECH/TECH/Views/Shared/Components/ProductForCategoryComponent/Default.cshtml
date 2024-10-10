@@ -1,0 +1,204 @@
+﻿@using TECH.Areas.Admin.Models
+@model List<ProductForCategoryModelView>
+
+<style>
+
+     .t-prod-H {
+
+            background: #e6e6e6;
+        border-bottom: 1px solid #fff;
+        display: block;
+        width: 100%;
+        height: 41px;
+        margin-bottom: 0px;
+
+    }
+    .t-prod-H .t_span1 span.tab_news5 {
+        background: #89a600;
+    }
+    .info-prod-H h3 {
+        color: #333;
+        font-weight: 400;
+        padding: 8px;
+        font-size: 13px;
+        margin: 0px;
+    }
+    .info-prod-H h4 {
+        font-size: 14px;
+        font-weight: 700;
+        color: #f8456a;
+        margin: 0px;
+        font-size: 13px;
+    }
+    .t-prod-H .t_span1 span {
+        text-transform: uppercase;
+        color: #fff;
+        float: left;
+        font-size: 14px;
+        font-weight: 400;
+        padding: 0 20px;
+            height: 100%;
+                display: inline-flex;
+        align-items: center;
+    }
+    .box-content-componse .row{
+        margin:0px;
+    }
+    .box-products{
+            margin-top: 30px;
+    }
+
+        .titlehome {
+            float: left;
+            width: 100%;
+            background: #fff;
+            border: 2px solid #ccc;
+            height: 53px;
+        }
+
+            .titlehome i {
+                line-height: 50px;
+                color: #fff;
+                height: 50px;
+                padding-right: 50px;
+                background-size: 50px 50px;
+                background-position: 25px 0;
+                background-repeat: no-repeat;
+                background-color: #a6a6a6;
+                margin-bottom: -4px;
+                border-radius: 0 50px 50px 0;
+                width: 120px;
+                float: left;
+                display:block;
+            }
+
+            .titlehome span {
+                width: 48px;
+                height: 48px;
+                margin: 1px 0 -4px -49px;
+                background: url(/image-common/favicon2.png) center no-repeat #fff;
+                font-weight: 700;
+                color: #010101;
+                float: left;
+                display: block;
+                border-radius: 50px;
+            }
+
+            .titlehome i, .titlehome span {
+                font-size: 24px;
+                text-align: center;
+            }
+
+            .titlehome h2 {
+                line-height: 41px;
+                padding-left: 20px;
+                padding-top: 5px;
+                font-size: 20px;
+                text-decoration: none;
+                color: #010101;
+                margin:0px;
+                float:left;
+            }
+
+                .titlehome h2 a {
+                    color: #e77e24;
+                }
+
+            .titlehome a.viewall {
+                color: #e77e24;
+                margin-right: 10px;
+            }
+
+            .titlehome .menuchild a, .titlehome a.viewall {
+                font-size: 14px;
+                font-weight: 400;
+                text-transform: uppercase;
+            }
+
+            .titlehome .menuchild, .titlehome a.viewall {
+                float: right;
+                margin-top: 13px;
+            }
+</style>
+
+@if (Model != null && Model.Count > 0)
+{
+    @foreach (var item in Model)
+    {
+        if (item.productModelViews != null && item.productModelViews.Count > 0)
+        {
+            <section class="section section2 custom-section" id="section_1623773133" style="padding-bottom: 0px;">
+                <div class="container">
+                    <div class="inner">
+                        <div class="section-content relative">
+                            <div class="row" id="row-1066193258">
+                                <div id="col-1187004373" class="col small-12 large-12">
+                                    <div class="col-inner">
+                                        <div class="container section-title-container" style="padding: 0px;">
+                                            <h2 class="section-title section-title-normal">
+                                                <span class="section-title-main" style="font-weight: bold;color: #0a0a0a;">@item.CategoryModelView.name</span>
+                                               
+                                            </h2>
+                                        </div>
+                                        <div class="row  equalize-box large-columns-5 medium-columns-3 small-columns-2 row-small">
+                                            @foreach (var itemProduct in item.productModelViews.Take(5))
+                                            {                                               
+                                                <div class="col">
+                                                    <div class="col-inner">
+
+                                                        <div class="product-small box has-hover box-normal box-text-bottom">
+                                                            <div class="box-image">
+                                                                <div class="image-zoom image-cover" style="padding-top:100%;">
+                                                                    <a href="/chi-tiet-san-pham/@itemProduct.id" aria-label="@itemProduct.name">
+                                                                        <img loading="lazy" decoding="async" width="790" height="790" src="/product-image/@itemProduct.ImageModelView?[0].name" class="attachment-original size-original lazy-load-active" alt="" sizes="(max-width: 790px) 100vw, 790px">
+                                                                    </a>
+                                                                </div>
+                                                            </div>
+                                                            <div class="box-text text-center" style="">
+                                                                <div class="title-wrapper">
+                                                                    <p class="name product-title woocommerce-loop-product__title" style="height:unset"><a href="/chi-tiet-san-pham/@itemProduct.id" class="woocommerce-LoopProduct-link woocommerce-loop-product__link"> @itemProduct.name</a></p>
+                                                                </div>
+                                                                <div class="price-wrapper" style="">
+                                                                    <span class="price">
+                                                                        <del aria-hidden="true">
+                                                                            <span class="woocommerce-Price-amount amount">
+                                                                                @if (!string.IsNullOrEmpty(itemProduct.price_reduced_str))
+                                                                                {
+                                                                                    @*<span class="current-price">@itemProduct.price_reduced_str ₫</span>*@
+                                                                                    <bdi>@itemProduct.price_reduced_str<span class="woocommerce-Price-currencySymbol">₫</span></bdi>
+                                                                                }
+                                                                              
+                                                                            </span>
+                                                                        </del>
+                                                                        <ins>
+                                                                            @if (!string.IsNullOrEmpty(itemProduct.price_sell_str))
+                                                                            {
+                                                                                @*<span class="current-price">@itemProduct.price_sell_str ₫</span>*@
+                                                                                 <span class="woocommerce-Price-amount amount"><bdi>@itemProduct.price_sell_str<span class="woocommerce-Price-currencySymbol">₫</span></bdi></span>
+                                                                            }
+                                                                           
+                                                                        </ins>
+                                                                    </span>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                       <div style="text-align:center">
+                                            <a href="/san-pham?categoryId=@item.CategoryModelView.id" target="" title="@item.CategoryModelView.name" style="font-size: 17px;">Xem tất cả<i class="icon-angle-right"></i></a>
+                                       </div>
+                                       
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        }
+    }
+
+}

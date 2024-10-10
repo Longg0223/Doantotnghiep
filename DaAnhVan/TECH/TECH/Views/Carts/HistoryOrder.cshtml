@@ -1,0 +1,362 @@
+﻿@using TECH.Areas.Admin.Models
+@model List<OrdersModelView>
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Styles{
+    <link href="~/public/customer/bootstrap-sweetalert-master/dist/sweetalert.css" rel="stylesheet" />
+    <style>
+        .custom-star .star-color {
+            margin-right: 8px;
+            color: #fcc72a;
+        }
+
+        .custom-star .bi-star-fill {
+            font-size: 20px !important;
+        }
+
+        .rate {
+            float: left;
+            height: 46px;
+            padding: 0 10px;
+            position: relative;
+        }
+
+            .rate:not(:checked) > input {
+                position: absolute;
+                top: -9999px;
+            }
+
+            .rate:not(:checked) > label {
+                float: right;
+                width: 1em;
+                overflow: hidden;
+                white-space: nowrap;
+                cursor: pointer;
+                font-size: 30px;
+                color: #ccc;
+            }
+
+                .rate:not(:checked) > label:before {
+                    content: '★ ';
+                }
+
+            .rate > input:checked ~ label {
+                color: #ffc700;
+            }
+
+            .rate:not(:checked) > label:hover,
+            .rate:not(:checked) > label:hover ~ label {
+                color: #deb217;
+            }
+
+            .rate > input:checked + label:hover,
+            .rate > input:checked + label:hover ~ label,
+            .rate > input:checked ~ label:hover,
+            .rate > input:checked ~ label:hover ~ label,
+            .rate > label:hover ~ input:checked ~ label {
+                color: #c59b08;
+            }
+
+            .rate .custom-star-index {
+                float: right;
+                display: inline-block;
+                font-size: 14px;
+                width: 1em;
+                position: absolute;
+                right: -6px;
+                bottom: 5px;
+            }
+            .box-section{
+                
+            }
+    </style>
+}
+@if (Model != null && Model.Count > 0)
+{
+    <section class="ftco-section custom-height box-section" style="margin-top: 40px">
+        <div class="parallax-img d-flex align-items-center">
+            <div  class="container">
+                <div  class="row">
+                    <h2  class="mb-3">Lịch sử đơn hàng</h2>
+                    <div  class="col-md-12">
+                        <div  class="cart-list my-cart">
+                            <div  class="table-responsive">
+                                <table  class="table table-striped">
+                                    <thead >
+                                        <tr >
+                                            <th >Mã đơn hàng</th>
+                                            <th >Tổng đơn hàng</th>
+                                            <th >Hình thức mua</th>
+                                            <th >Ngày đặt hàng</th>
+                                            <th >Trạng thái đơn hàng</th>
+                                           @* <th >Đánh giá</th>*@
+                                        </tr>
+                                    </thead>
+                                    <tbody >
+                                        @foreach (var item in Model)
+                                        {
+                                            <tr >
+                                                <td  class="image-prod">
+                                                    <div >
+                                                       @* <a  href="javascript:void(0)" onclick="OrderDetail(@item.id)">
+                                                            @item.code
+                                                        </a>*@
+                                                        <a href="javascript:void(0)">
+                                                            @item.code
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td  class="product-name">
+                                                    <div >@item.total.Value.ToString("#,###")<i >đ</i></div>
+                                                </td>
+                                                <td  class="price">
+                                                    <div >@item.paymentstr</div>
+                                                </td>
+                                                <td >@item.created_atstr</td>
+                                                @if (item.status == 0)
+                                                {
+                                                    <td>
+                                                        <div  class="standby">@item.statusstr</div>
+                                                    </td>
+                                                   @* <td >
+                                                        <p >Chưa thể đánh giá</p>
+                                                    </td>*@
+                                                }
+                                                else if (item.status == 1)
+                                                {
+                                                    <td>
+                                                        <div  class="done">@item.statusstr</div>
+                                                    </td>
+                                                    @*<td >
+                                                        <div >
+                                                            @if (item.review.HasValue && item.review.Value > 0)
+                                                            {
+                                                                <button  disabled="disabled" type="button" class="btn btn-info text-white">
+                                                                    Đã đánh giá
+                                                                </button>
+                                                            }
+                                                            else
+                                                            {
+                                                                <button  type="button" class="btn btn-info text-white" onclick="ReviewOrderProduct(@item.id)">
+                                                                    Đánh giá
+                                                                </button>
+                                                            }
+
+                                                        </div>
+                                                    </td>*@
+                                                }
+                                                else if (item.status == 2)
+                                                {
+                                                    <td >
+                                                        <div  class="cancel">@item.statusstr</div>
+                                                    </td>
+                                                   @* <td >
+                                                        <p >Chưa thể đánh giá</p>
+                                                    </td>*@
+                                                }
+
+                                            </tr>
+                                        }
+
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <partial name="OrderDetail" />
+    @*<partial name="ReivewsOrderProduct" />*@
+    <div class="box-reviewsorderproduct"></div>
+}
+else
+{
+    <p style="text-align:center;font-size: 25px;    height: 300px;  display: flex;  justify-content: center;align-items: center;">Không có lịch sử đơn hàng</p>
+}
+
+
+@section Scripts{
+    <script src="~/public/customer/bootstrap-sweetalert-master/dist/sweetalert.min.js"></script>
+    <script type="text/javascript">
+        var self = this;
+        self.Reviews = [];
+        $(document).ready(function () {
+
+            $(document).on('click', '.btn-reviews', function (e) {
+                self.Reviews = [];
+                var productIds = $(".product-review");
+                if (productIds != null && productIds.length > 0) {
+                    for (var i = 0; i < productIds.length; i++) {
+                        var item = productIds[i];
+                        var id = $(item).attr("data-id");
+                        var orderDetailId = $(item).attr("data-order");
+                        if (id != "" && id != undefined && orderDetailId != "" && orderDetailId != undefined) {
+                            var customId = "#" + id + " " + " .custom-star-index";
+                            var customComment = "#" + id + " " + " .comment";
+                            var star = $(customId).text();
+                            var comment = $(customComment).val();
+                            if (star != "" && star != undefined) {
+                                var _review = {
+                                    order_id: parseInt(orderDetailId),
+                                    product_id: parseInt(id),
+                                    star: parseInt(star),
+                                    comment: comment
+                                };
+                                self.Reviews.push(_review);
+                            }
+                        }
+                    }
+                }
+                if (self.Reviews != null && self.Reviews.length > 0) {
+                    ReivewsPost();
+                } else {
+                    swal("", "Vui lòng đánh giá", "warning");
+                }
+            });
+
+
+            $(document).on('click', '.custom-star', function (e) {
+                var idstar = $(this).attr('for');
+                var id = $(this).attr('data-id');
+                var customTagId = "#" + id + " #" + idstar;
+                $("#" + id + " .custom-star-index").text($(customTagId).val());
+            });
+
+
+            $(document).on('mouseenter', '.custom-star', function (e) {
+                var idstar = $(this).attr('for');
+                var id = $(this).attr('data-id');
+                $("#" + id + " .custom-star-index").text($(this).text());
+            });
+            $(document).on('mouseleave', '.custom-star', function (e) {
+                var id = $(this).attr('data-id');
+                var nameRadio = "rate_" + id;
+                var value = $("input[name='" + nameRadio + "']:checked").val();
+
+                if (value > 0 && value != undefined) {
+                    $("#" + id + " .custom-star-index").text(value);
+                }
+                else {
+                    $("#" + id + " .custom-star-index").text("");
+                }
+            });
+
+
+        })
+
+
+        function ReivewsPost() {
+            $.ajax({
+                url: '/carts/ReviewsPost',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    reviewsPost: self.Reviews
+                },
+                beforeSend: function () {
+                    // Loading('show');
+                },
+                complete: function () {
+                    // Loading('hiden');
+                },
+                success: function (response) {
+                    if (response.success) {
+                        swal({
+                            title: "Success!",
+                            text: "Đánh giá thành công.",
+                            type: "success"
+                        }, function () {
+                            window.location.href = "/lich-su-don-hang";
+                        });
+                        $("#ReviewModal").modal("hide");
+                    }
+                    else {
+                        swal("", "Đánh giá không thành công", "warning");
+                    }
+                    self.Reviews = [];
+                }
+            })
+        }
+
+
+
+        function OrderDetail(id) {
+            $.ajax({
+                url: '/admin/orders/GetOrderDetail',
+                type: 'GET',
+                dataType: 'json',
+                data: {
+                    orderId: id
+                },
+                beforeSend: function () {
+                    // Loading('show');
+                },
+                complete: function () {
+                    // Loading('hiden');
+                },
+                success: function (response) {
+                    if (response.Data != null) {
+                        $("#DetailModal").modal("show");
+                        $(".madonhang").text(response.Data.code);
+                        if (response.Data.OrdersDetailModelView != null && response.Data.OrdersDetailModelView.length > 0) {
+                            var trProductsHtml = "";
+                            for (var i = 0; i < response.Data.OrdersDetailModelView.length; i++) {
+                                trProductsHtml += "<tr>";
+                                var item = response.Data.OrdersDetailModelView[i];
+                                if (item.ProductModelView != null) {
+                                    trProductsHtml += "<td>" + item.ProductModelView.name + "</td>";
+                                } else {
+                                    trProductsHtml += "<td></td>";
+                                }
+                                trProductsHtml += "<td>" + item.quantity + "</td>";
+                                trProductsHtml += "<td>" + item.pricestr + " đ</td>";
+                                trProductsHtml += "</tr>";
+                            }
+                            if (response.Data.fee_ship > 0) {
+                                $(".hist-fee-ship").show();
+                                $(".price-fee-ship").text(response.Data.fee_shipstr + " đ");
+                            }
+                            $(".total-price").text(response.Data.totalOrderDetailStr + " đ");
+                            $("#dataProduct").html(trProductsHtml);
+                            $(".into-money").text(response.Data.totalstr + " đ");
+                            $(".payment").text(response.Data.paymentstr);
+                        }
+                    }
+                }
+            })
+        }
+
+
+        function ReviewOrderProduct(id) {
+            $.ajax({
+                url: '/Carts/ReviewOrderProduct',
+                type: 'GET',
+                dataType: "html",
+                data: {
+                    orderId: id
+                },
+                beforeSend: function () {
+                    // Loading('show');
+                },
+                complete: function () {
+                    // Loading('hiden');
+                },
+                success: function (response) {
+                    $(".box-reviewsorderproduct").html(response);
+                    $("#ReviewModal").modal("show");
+
+                }
+            })
+
+        }
+
+
+
+    </script>
+}
